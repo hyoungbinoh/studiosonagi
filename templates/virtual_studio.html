@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta property="og:title" content="소나기버추얼스튜디오"/>
-    <meta property="og:description" content="저희 소나기버추얼스튜디오는 LED 화면에 가상 공간을 띄워 기존 야외 촬영이 갖는 여러 제약을 극복하고 원하는 배경에서 촬영이 가능한 버추얼 프로덕션 스튜디오입니다."/>
+    <meta property="og:description" content="소나기버추얼스튜디오는 LED Wall을 활용하여 촬영하는 버추얼 프로덕션 스튜디오입니다."/>
     <meta property="og:image" content="{{ url_for('static', filename='소나기버추얼스튜디오_배경1.JPG') }}"/>
 
     <!-- naver -->
@@ -15,317 +15,67 @@
     <meta name="google-site-verification" content="6PUIkpo3ZS8oODBmeIU32yTk8MRxJYL_pzkJohBgr28" />    
 
     <link href="{{ url_for('static', filename='소나기로고.png') }}" rel="shortcut icon" type="image/x-icon">
-
-    <!-- <fontawesome> -->
+        
+    <!-- kakaomap -->
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=e7d72bbbefb241406c90a501568226f0"></script>
+    
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    
+    <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/8c330d8a63.js" crossorigin="anonymous"></script>
 
     <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700&display=swap" rel="stylesheet">   
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700&display=swap" rel="stylesheet">  
+    
+    <!-- css -->
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='header.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='studio.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='map.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='footer.css') }}" rel="stylesheet" type="text/css">
 
     <title>스튜디오 소나기</title>
 
-    <style>
-        html, body {
-            margin: 0; 
-            padding: 0;
-        }
-        /* 메뉴바 */
-        .logo {
-            position: fixed;
-            width: 170px;
-            z-index: 5;
-            margin: 25px 0px 0px 25px;
-        }
-        .nav_bar {
-            background-color: black;
-            opacity: 0.8;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding: 30px 0px;             
-            position: fixed;
-            display: flex;
-            z-index: 4;
-            font-family: 'Roboto', sans-serif;
-        }
-        .nav_menu {
-            margin: auto;
-            padding-left: 0;
-            display: flex;
-            list-style: none;
-        }
-        .nav_link {
-            margin: 15px;
-            color: white;
-            font-weight: bold;
-            text-decoration: none;   
-        }
-        .nav_btn {
-            display: none;
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 30px;
-            color: white;
-        }
-        .nav_link:hover {
-            text-decoration: underline;
-            font-weight: bold;
-            color: #ae22ff;
-        }          
+    <style>         
         /* 배경 */
-        .background1 {
-            background-color: black;
-            width: 100%;
-            height: 100vh;
-            height: fill-available;
+        .virtual-bg1 {
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url("{{ url_for('static', filename='소나기버추얼스튜디오_배경1.JPG') }}");
-            background-position: center;
-            background-size: cover;
-            position: relative;
-            overflow: hidden;
         }
-        .virtual_logo {
-            width: 28%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            position: absolute;
-        }
-        .background2 {
-            background-color: black;
-            width: 100%;
-            height: 100vh;
-            height: fill-available;
-            background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url("{{ url_for('static', filename='소나기버추얼스튜디오_배경2.jpg') }}");
-            background-position: center;
-            background-size: cover;
-            position: relative;
-            overflow: hidden;
-        }
-        .background2_text {
-            top: 50%;
-            left: 10%;
-            transform: translateY(-50%);
-            font-family: 'Noto Sans KR', sans-serif;
-            color: white;
-            position: absolute;
-        }
-        .title {
-            font-size: 36px;
-        }
-        .text {
-            font-size: 18px;
-        }
-        .background3 {
-            background-color: black;         
-            width: 100%;
-        }
-        h3 {
-            font-size: 30px;
-        }
-        .background3_text {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-top: 30px;
-            font-family: 'Roboto', sans-serif;
-            font-size: 20px;
-            color: white;
-            width: 100%;
-        }
-        .facility_box {
-            width: 100%;       
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(700px, max-content));
-            justify-content: center;
-        }
-        .facility_img{
-            display: inline-block;
-            position: relative;
-            overflow: hidden;
 
-            width: 600px;
-            margin: 50px 50px 0px 50px;
-            border-radius: 10px;
+        .virtual-bg2 {
+            background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url("{{ url_for('static', filename='소나기버추얼스튜디오_배경2.jpg') }}");
         }
-        .facility_text {
-            color: white;
-            text-align: center;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .led_wall {
-            font-size: 14px;
-        }
-        .background4 {
-            background-color:rgb(40, 40, 40);
-            width: 100%;
-            height: 300px;
-            text-align: center;           
-            overflow: hidden;
-            position: relative;
-            font-family: 'Noto Sans KR', sans-serif;
-            color: white;
-        }
-        .background4_info {
-            position: absolute;
-            width: 100%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-        }
-        .social_media {
-            margin: auto;
-            padding: 20px;
-        }
-        .copyright {
-            color: white;
-            font-size: 12px;
-            text-decoration: none;
-        }
-        .icon {
-            font-size: 20px;
-            color: white;
-            margin: 0px 10px;
-        }
-        .fa-a:before {
-            font-family: 'Kanit', sans-serif;
-            font-size: 25px;
-            font-weight: bold;
-            content: 'N';
-        }
-        .blog {
-            width: 30px;
-        }
-        .under_title {
-            margin: 10px 0px;
-            font-size: 16px;
-            word-break: keep-all;
-        }
-        .under_wrap {
-            display:flex; 
-            text-align: center; 
-            margin: auto; 
-            justify-content: center; 
-            align-items: center;
-            margin: 35px 0px 30px 0px;
-        }
-        .under_box {
-            width: 350px;
-            margin: 0px 2vw 0px 2vw; 
-            padding: 10px 3vw; 
-            border: 1px solid white; 
-            border-radius: 10px;
-        }
-        .under_studio {
-            font-size: 16px;
-            margin: 5px;
-        }
-        .under_info {
-            font-size: 14px;
-            margin: 5px;
-        }
-        /* 모바일 사이즈 */
-        @media screen and (max-width: 1200px){
-            .nav_bar {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 40.5px 0px;
-                margin: 0;
-            }
-            .nav_menu {
-                display: none;
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-                margin-top: 30vh;
-                margin-bottom: 50vh;
-            }
-            .nav_link{
-                width: 100%;
-                text-align: center;
-                line-height: 50px;
-            }
-            .nav_btn {
-                display: block;
-            }
-            .nav_menu.active{
-                display: flex;
-            }
-            .under_wrap {
-                display: none;
-            }
-        }
-        @media screen and (max-width: 1000px) {
-            .virtual_logo {
-                width: 56%;
-            }
-            .facility_box {
-                grid-template-columns: repeat(auto-fit, minmax(360px, max-content));
-            }
-            .facility_img{
-                width: 300px;
-                margin: 30px 30px 0px 30px;
-            }
-            .facility_text {
-                font-size: 15px;
-            }
-            .led_wall {
-                font-size: 11px;
-            }
-        }
-        @media screen and (max-width: 800px) {
-            .background2_text {
-                left: 7%
-            }
-            .title {
-                font-size: 24px;
-            }
-            .text {
-                font-size: 13px;
-            }
-            h3{
-                font-size: 25px;
-            }
-            .under_title {
-                font-size: 14px;
-            }
-        }
-        @media screen and (max-width: 500px) {
-            .background1 {
-                height: 100vh;
-                height: calc(var(--vh, 1vh) * 100);
-            }
-            .background2 {
-                height: 100vh;
-                height: calc(var(--vh, 1vh) * 100);
-            }
-        }
+
+
     </style>
 </head>
 <body>
-    <a href="/"><img class="logo" src="{{ url_for('static', filename='로고.png') }}" alt="로고"></div>
-    <nav class="nav_bar">
-        <ul class="nav_menu">
-            <li class="nav_list"><a class="nav_link" href="/">HOME</a></li>
-            <li class="nav_list"><a class="nav_link" href="/sound">SOUND STUDIO</a></li>
-            <li class="nav_list"><a class="nav_link" href="/virtual">VIRTUAL STUDIO</a></li>
-            <li class="nav_list"><a class="nav_link" href="/filmography">FILMOGRAPHY</a></li>
-            <li class="nav_list"><a class="nav_link" href="/contact">CONTACT</a></li>
+    <a href="/"><img class="logo" src="{{ url_for('static', filename='로고.png') }}" alt="logo"></div>
+    <nav class="nav-bar">
+        <ul class="nav-menu">
+            <li class="nav-list"><a class="nav-link" href="/virtual">VIRTUAL STUDIO</a></li>
+            <li class="nav-list"><a class="nav-link" href="/portfolio">PORTFOLIO</a></li>
+            <li class="nav-list"><a class="nav-link" href="/sample">3D MAP</a></li>
+            <li class="nav-list"><a class="nav-link" href="/contact">RESERVATION</a></li>
+            <li class="nav-list"><a class="nav-link" href="/sound">SOUND WORKS</a></li>
+            <li class="nav-list"><a class="nav-link" href="/filmography">FILMOGRAPHY</a></li>
         </ul>
-        <a href="#" class="nav_btn"><i class="fas fa-bars"></i></a>
-    </nav> 
-    <div class="background1">
-        <p><img class="virtual_logo"  src="{{ url_for('static', filename='소나기버추얼스튜디오_로고.png') }}" alt="SONAGI VIRTUAL STUDIO"></p>
+        <a href="#" class="nav-btn"><i class="fas fa-bars"></i></a>
+    </nav>
+    <div class="studio-container virtual-bg1">
+        <p><img class="virtual_logo" src="{{ url_for('static', filename='소나기버추얼스튜디오_로고.png') }}" alt="소나기버추얼스튜디오"></p>
     </div>
-    <div class="background2">
-        <div class="background2_text">
-            <h1 class="title">소나기버추얼스튜디오</h1>
-            <div class="text">
+    <div class="info-container virtual-bg2">
+        <div class="info-wrapper">
+            <h1 class="info-title">소나기버추얼스튜디오</h1>
+            <div class="info-text">
                 <p>저희 소나기버추얼스튜디오는 LED 화면에 가상 공간을 띄워</p>
                 <p>기존 야외 촬영이 갖는 여러 제약을 극복하고 원하는 배경에서</p>
                 <p>촬영이 가능한 버추얼 프로덕션 스튜디오입니다.</p>
@@ -335,71 +85,70 @@
             </div>
         </div>
     </div>
-    <div class="background3">
-        <div class="background3_text">
-            <h3>FACILITY</h3>
+    <div class="faciltity-container">
+        <div class="facility-top">
+            <h3 class="facility-title">FACILITY</h3>
         </div>
-        <div class="facility_box">
+        <div class="facility-box">
             <div>
-                <img class="facility_img" src="{{ url_for('static', filename='소나기버추얼스튜디오_시설1.jpg') }}" alt="Exterior">
-                <p class="facility_text">Exterior<br/><span class="led_wall">주차 2대 가능</span></p>
+                <img class="facility-img" src="{{ url_for('static', filename='소나기버추얼스튜디오_시설1.jpg') }}" alt="Exterior">
+                <p class="facility-text">Exterior<br/><span class="led_wall">주차 2대 가능</span></p>
             </div>
             <div>
-                <img class="facility_img" src="{{ url_for('static', filename='소나기버추얼스튜디오_배경1.JPG') }}" alt="Studio">
-                <p class="facility_text">Studio<br/><span class="led_wall">차량 진입 가능 (진입 높이 2300mm)</span></p>
+                <img class="facility-img" src="{{ url_for('static', filename='소나기버추얼스튜디오_배경1.JPG') }}" alt="Studio">
+                <p class="facility-text">Studio<br/><span class="led_wall">차량 진입 가능 (진입 높이 2300mm)</span></p>
             </div>
             <div>
-                <img class="facility_img" src="{{ url_for('static', filename='소나기버추얼스튜디오_시설2.JPG') }}" alt="Makeup Room">
-                <p class="facility_text">Makeup Room</p>
+                <img class="facility-img" src="{{ url_for('static', filename='소나기버추얼스튜디오_시설2.JPG') }}" alt="Makeup Room">
+                <p class="facility-text">Makeup Room</p>
             </div>
             <div>
-                <img class="facility_img" src="{{ url_for('static', filename='소나기버추얼스튜디오_시설3.JPG') }}" alt="Fitting Room">
-                <p class="facility_text">Fitting Room</p>
+                <img class="facility-img" src="{{ url_for('static', filename='소나기버추얼스튜디오_시설3.JPG') }}" alt="Fitting Room">
+                <p class="facility-text">Fitting Room</p>
             </div>
             <div>
-                <img class="facility_img" src="{{ url_for('static', filename='소나기버추얼스튜디오_시설5.JPG') }}" alt="LED Wall">
-                <p class="facility_text" style="margin-bottom: 70px;">LED Wall<br/><span class="led_wall">크기: 7680 x 3584mm | 피치: 2mm | 해상도: 3840 x 1792px</span></p>
+                <img class="facility-img" src="{{ url_for('static', filename='소나기버추얼스튜디오_시설5.JPG') }}" alt="LED Wall">
+                <p class="facility-text" style="margin-bottom: 70px;">LED Wall<br/><span class="led_wall">크기: 7680 x 3584mm | 피치: 2mm | 해상도: 3840 x 1792px</span></p>
             </div>
         </div>
     </div>
-    <div class="background4">
-        <div class="background4_info">
-            <div class="icon_box">
-                <a class="icon" href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                <a class="icon" href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a class="icon" href="#"><i class="fa-brands fa-youtube"></i></a>
-                <a class="icon" href="#"><i class="fa fa-a"></i></a>
-            </div>
-            <p class="under_title">상호명: 주식회사 소나기사운드웍스 | 대표: 박주강 | 사업자등록번호: 309-87-01246</p>
-            <div class="under_wrap">
-                <div class="under_box">
-                    <p class="under_studio">사운드스튜디오</p>
-                    <p class="under_info"><i class="fa-solid fa-location-dot"></i> 경기도 성남시 중원구 사기막골로 177, 418호</p>
-                    <p class="under_info"><i class="fa-solid fa-envelope"></i> sonagisound@gmail.com  
+    <div class="map-container">
+        <div class="map-box">
+            <h2 class="map-title">LOCATION</h2>
+            <div id="map1" class="map"></div>
+            <p class="map-address">서울특별시 금천구 벛꽃로 14길 12, 1층</p>
+        </div>
+    </div>
+    <div class="footer-container">
+        <div class="footer-wrapper">
+            <div class="icon-box" id="sns-box"></div>
+            <p class="footer-title">상호명: 주식회사 소나기사운드웍스 | 대표: 박주강 | 사업자등록번호: 309-87-01246</p>
+            <div class="footer-boxes">
+                <div class="footer-box">
+                    <p class="footer-studio">소나기사운드웍스</p>
+                    <p class="footer-info"><i class="fa-solid fa-location-dot"></i> 경기도 성남시 중원구 사기막골로 177, 418호</p>
+                    <p class="footer-info"><i class="fa-solid fa-envelope"></i> sonagisound@gmail.com  
                     <i class="fa-solid fa-phone"></i> 070-4485-8776</p>
                 </div>
-                <div class="under_box">
-                    <p class="under_studio">버추얼스튜디오</p>
-                    <p class="under_info"><i class="fa-solid fa-location-dot"></i> 서울특별시 금천구 벛꽃로 14길 12, 1층</p>
-                    <p class="under_info"><i class="fa-solid fa-envelope"></i> sonagiled@gmail.com  
+                <div class="footer-box">
+                    <p class="footer-studio">소나기버추얼스튜디오</p>
+                    <p class="footer-info"><i class="fa-solid fa-location-dot"></i> 서울특별시 금천구 벛꽃로 14길 12, 1층</p>
+                    <p class="footer-info"><i class="fa-solid fa-envelope"></i> sonagiled@gmail.com  
                     <i class="fa-solid fa-phone"></i> 010-4145-0408</p>
                 </div>
             </div>
-            <a class="copyright" href="/">COPYRIGHT © SONAGI SOUNDWORKS ALL RIGHTS RESERVED.</a>
+                <div class="footer-link-box"><a class="footer-link" href="/terms">이용약관</a> | <a class="footer-link" href="/policy">개인정보 처리방침</a></div>
+            <a class="copyright" href="/admin">COPYRIGHT © SONAGI SOUNDWORKS ALL RIGHTS RESERVED.</a>
         </div>
     </div>
-    <!-- 아이폰사이즈 -->
-    <script type="text/javascript">
-        let vh = window.innerHeight * 0.01
-        document.documentElement.style.setProperty('--vh', `${vh}px`)
-    </script>
-    <!-- 토글버튼 -->
-    <script type="text/javascript">
-        const toggleBtn = document.querySelector('.nav_btn');
-        const menu = document.querySelector('.nav_menu');
-        toggleBtn.addEventListener('click',()=>{
-        menu.classList.toggle('active');
-        });
-    </script>
+    <div>
+        <button id="top-btn">^</button>
+    </div>
+    <!-- js -->
+    <script src="{{ url_for('static', filename='toggleBtn.js') }}"></script>
+    <script src="{{ url_for('static', filename='iphoneSize.js') }}"></script>
+    <script src="{{ url_for('static', filename='virtualStudio.js') }}"></script>
+    <script src="{{ url_for('static', filename='sns.js') }}"></script>
+    <script src="{{ url_for('static', filename='scrollTop.js') }}"></script>
 </body>
 </html>

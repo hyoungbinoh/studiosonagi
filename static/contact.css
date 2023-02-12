@@ -1,0 +1,198 @@
+.contact-container {
+    background-color: black;
+    width: 100%;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    padding-top: 100px;
+    text-align: center;
+}
+
+.contact-box {
+    border: solid 1px  rgba(255, 255, 255, 0.1);
+    background-color:  rgba(255, 255, 255, 0.1);
+    color: white;
+    margin: 50px auto 0px auto;
+    width: 56vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.contact-title {
+    font-size: 20px;
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 20px;
+}
+
+.contact-info {
+    margin: auto;
+    max-width: 430px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.input_box {
+    margin: 50px auto 20px auto;
+}
+.input-flex {
+    display: flex;
+    width: calc(60vw + 12px);
+    justify-content: center;
+    margin: auto;
+}
+.long-label {
+    color: white;
+    display: inline-block;
+    width: calc(60vw + 12px);
+    height: 34px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    vertical-align: top;
+    font-family: 'Roboto', sans-serif;
+}
+.short-label {
+    color: white;
+    display: inline-block;
+    width: calc(30vw - 5px);
+    height: 34px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    vertical-align: top;
+    font-family: 'Roboto', sans-serif;
+}
+#email {
+    width: 60vw;
+    height: 30px;
+    margin-bottom: 20px;
+    padding: 5px;
+    line-height: 30px;           
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;   
+    font-family: 'Noto Sans KR', sans-serif;
+}
+#name, #phone, #date, #start-time, #end-time, #usage-time {
+    width: calc(30vw - 17px);
+    height: 30px;
+    margin: 0px 10px 20px 10px;
+    padding: 5px;
+    line-height: 30px;           
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;   
+    font-family: 'Noto Sans KR', sans-serif;
+}
+select {
+    width: calc(60vw + 12px);
+    height: 40px;
+    margin-bottom: 20px;
+    padding: 5px;
+    line-height: 40px;           
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;   
+    font-family: 'Noto Sans KR', sans-serif;
+}
+option {
+    background-color: black;
+}
+.message-container { 
+    vertical-align: middle;
+}
+textarea {
+    width: 60vw;
+    height: 160px;
+    margin-bottom: 20px;
+    padding: 5px;
+    top: 10px;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.send_message {
+    width: calc(60vw + 12px);
+    height: 40px;         
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;            
+    font-family: 'Roboto', sans-serif;
+}
+.send_message:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: black;
+    cursor: pointer;
+}
+/* 지도 */
+
+/* 모바일 */
+@media screen and (max-width: 768px) {
+    .contact-box {
+        width: 84vw;
+    }
+    .contact-info {
+        font-size: 12px;
+        word-break: keep-all;
+    }
+    .long-label {
+        width: calc(90vw + 12px);
+        height: 27px;
+        font-size: 14px;
+    }
+    .short-label {
+        width: calc(45vw - 5px);
+        height: 27px;
+        font-size: 14px;
+    }
+    .input_box {
+    margin: 30px auto 10px auto;
+    }
+    #email {
+        width: 90vw;
+        height: 30px;
+        margin-bottom: 15px;
+        line-height: 40px;
+        font-size: 12px;
+    }
+    #name, #phone, #date, #start-time, #end-time, #usage-time {
+        width: calc(45vw - 17px);
+        height: 30px;
+        margin: 0px 10px 15px 10px;
+        line-height: 40px;
+        font-size: 12px;
+    }
+    textarea {
+        width: 90vw;
+        height: 100px;
+        margin-bottom: 14px;
+        padding: 5px;
+        top: 10px;
+        font-size: 12px;
+    }
+    .send_message_label {
+        display: none;
+    }
+    .send_message {
+        width: calc(90vw + 12px);
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: black;
+        font-size: 16px;
+    }
+}

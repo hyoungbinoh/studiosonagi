@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta property="og:title" content="스튜디오 소나기"/>
-    <meta property="og:description" content="스튜디오 소나기는 소나기 사운드웍스의 브랜드 네임으로, 사운드 스튜디오와 버추얼 스튜디오로 이루어져 있습니다."/>
+    <meta property="og:description" content="스튜디오 소나기는 소나기 사운드웍스의 브랜드 네임으로, 사운드웍스와 버추얼스튜디오로 이루어져 있습니다."/>
     <meta property="og:image" content="{{ url_for('static', filename='소나기버추얼스튜디오_배경1.JPG') }}"/>
     
     <!-- naver -->
@@ -16,360 +16,105 @@
 
     <link href="{{ url_for('static', filename='소나기로고.png') }}" rel="shortcut icon" type="image/x-icon">
 
-    <!-- jQuery -->
+    <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 
-    <!-- <fontawesome> -->
+    <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/8c330d8a63.js" crossorigin="anonymous"></script>
     
-    <!-- <font> -->
+    <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700&display=swap" rel="stylesheet">
 
+    <!-- css -->
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='home.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='header.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='footer.css') }}" rel="stylesheet">
     
     <title>스튜디오 소나기</title>
 
     <style>
-        html, body{
-            margin: 0;
-            padding: 0;
-        }
-        /* 메뉴바 */
-        .logo {
-            position: fixed;
-            width: 170px;
-            z-index: 5;
-            margin: 25px 0px 0px 25px;
-        }
-        .nav_bar {
-            background-color: black;
-            opacity: 0.8;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding: 30px 0px;             
-            position: fixed;
-            display: flex;
-            z-index: 4;
-            font-family: 'Roboto', sans-serif;
-        }
-        .nav_menu {
-            margin: auto;
-            padding-left: 0;
-            display: flex;
-            list-style: none;
-        }
-        .nav_link {
-            margin: 15px;
-            color: white;
-            font-weight: bold;
-            text-decoration: none;   
-        }
-        .nav_link:hover {
-            text-decoration: underline;
-            font-weight: bold;
-            color: #ae22ff;
-        }
-        .nav_btn {
-            display: none;
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 30px;
-            color: white;
-        }
-        /* 배경 */
-        .background1 {
-            background-color: transparent;
-            width: 100%;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-        }
-        .background1_text {
-            color: white;
-            text-align: center;
-            position: absolute;
-            top: 40%;
-            width: 100%;
-        }
-        .text {
-            font-family: 'Roboto', sans-serif;
-            font-size: 38px;
-            line-height: 100%;
-        }
-        h1 {
-            font-family: 'Anton', sans-serif;
-            font-size: 100px;
-            font-weight: lighter;
-            line-height: 100%;
-            margin-top: 0px;
-            letter-spacing: 3px;
-        }
-        video {
-            z-index: -1;
-            position: absolute;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            left: 50%;
-            transform: translate(-50%);  
-        }
-        .background2 {
-            background-color: black;
-            width: 100%;
-            height: 100vh;
+        .home-bg2 {
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url("{{ url_for('static', filename='스튜디오사진.jpg') }}");
-            background-position: center;
-            background-size: cover;
-            position: relative;
-            overflow: hidden;
-        }
-        .background2_text {
-            top: 50%;
-            left: 10%;
-            transform: translateY(0%);
-            opacity: 0;
-            font-family: 'Noto Sans KR', sans-serif;
-            color: white;
-            position: absolute;
-            transition: 2s all ease;
-        }
-        .background2_text.active {
-            transform: translateY(-50%);
-            opacity: 1;
-        }
-        .background2_title {
-            font-size: 36px;
-        }
-        .background2_text > p {
-            font-size: 18px;
-        }
-        .background3 {
-            background-color:rgb(40, 40, 40);
-            width: 100%;
-            height: 300px;
-            text-align: center;            
-            overflow: hidden;
-            position: relative;
-            font-family: 'Noto Sans KR', sans-serif;
-            color: white;
-        }
-        .background3_info {
-            position: absolute;
-            width: 100%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-        }
-        .social_media {
-            margin: auto;
-            padding: 20px;
-        }
-        .copyright {
-            color: white;
-            font-size: 12px;
-            text-decoration: none;
-        }
-        .icon {
-            font-size: 20px;
-            color: white;
-            margin: 0px 10px;
-        }
-        .fa-a:before {
-            font-family: 'Kanit', sans-serif;
-            font-size: 25px;
-            font-weight: bold;
-            content: 'N';
-        }
-        .blog {
-            width: 30px;
-        }
-        .under_title {
-            margin: 10px 0px;
-            font-size: 16px;
-            word-break: keep-all;
-        }
-        .under_wrap {
-            display:flex; 
-            text-align: center; 
-            margin: auto; 
-            justify-content: center; 
-            align-items: center;
-            margin: 35px 0px 30px 0px;
-        }
-        .under_box {
-            width: 350px;
-            margin: 0px 2vw 0px 2vw; 
-            padding: 10px 3vw; 
-            border: 1px solid white; 
-            border-radius: 10px;
-        }
-        .under_studio {
-            font-size: 16px;
-            margin: 5px;
-        }
-        .under_info {
-            font-size: 14px;
-            margin: 5px;
-        }
-        /* 모바일 사이즈 */   
-        @media screen and (max-width: 1200px) {
-            .background1_text{
-                top: 30%;
-            }
-            .text {
-                font-size: 30px;
-            }
-            .nav_bar {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 40.5px 0px;
-                margin: 0;
-            }
-            .nav_menu {
-                display: none;
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-                margin-top: 30vh;
-                margin-bottom: 50vh;
-            }
-            .nav_link{
-                width: 100%;
-                text-align: center;
-                line-height: 50px;
-            }
-            .nav_btn {
-                display: block;
-            }
-            .nav_menu.active{
-                display: flex;
-            }
-            .under_wrap {
-                display: none;
-            }
-        }
-        @media screen and (max-width: 800px) {
-            .background2_text {
-                left: 7%
-            }
-            .background2_title {
-                font-size: 24px;
-            }
-            .background2_text > p {
-                font-size: 13px;
-            }
-            .under_title {
-                font-size: 14px;
-            }
-        }
-        @media screen and (max-width: 500px) {
-            .background1 {
-                height: 100vh;
-                height: calc(var(--vh, 1vh) * 100);
-            }
-            .background2 {
-                height: 100vh;
-                height: calc(var(--vh, 1vh) * 100);
-            }
         }
     </style>
 </head>
 <body>
-    <a href="/"><img class="logo" src="{{ url_for('static', filename='로고.png') }}" alt="로고"></div>
-    <nav class="nav_bar">
-        <ul class="nav_menu">
-            <li class="nav_list"><a class="nav_link" href="/">HOME</a></li>
-            <li class="nav_list"><a class="nav_link" href="/sound">SOUND STUDIO</a></li>
-            <li class="nav_list"><a class="nav_link" href="/virtual">VIRTUAL STUDIO</a></li>
-            <li class="nav_list"><a class="nav_link" href="/filmography">FILMOGRAPHY</a></li>
-            <li class="nav_list"><a class="nav_link" href="/contact">CONTACT</a></li>
+    <a href="/"><img class="logo" src="{{ url_for('static', filename='로고.png') }}" alt="logo"></div>
+    <nav class="nav-bar">
+        <ul class="nav-menu">
+            <li class="nav-list"><a class="nav-link" href="/virtual">VIRTUAL STUDIO</a></li>
+            <li class="nav-list"><a class="nav-link" href="/portfolio">PORTFOLIO</a></li>
+            <li class="nav-list"><a class="nav-link" href="/sample">3D MAP</a></li>
+            <li class="nav-list"><a class="nav-link" href="/contact">RESERVATION</a></li>
+            <li class="nav-list"><a class="nav-link" href="/sound">SOUND WORKS</a></li>
+            <li class="nav-list"><a class="nav-link" href="/filmography">FILMOGRAPHY</a></li>
         </ul>
-        <a href="#" class="nav_btn"><i class="fas fa-bars"></i></a>
+        <a href="#" class="nav-btn"><i class="fas fa-bars"></i></a>
     </nav>
     <div class="box">
-        <div class="background1">
-            <video muted autoplay loop>
+        <div class="home-container1">
+            <video muted autoplay loop playsinline>
                 <source src="{{ url_for('static', filename='스튜디오영상.mp4') }}" type="video/mp4" >
                 <strong>Your browser does not support the video tag.</strong>
             </video>
-            <div class="background1_text">
-                <p class="text">For Your Imagination</p>
-                <h1>STUDIO SONAGI</h1>
+            <div class="home-text-box1">
+                <p class="home-text1">For Your Imagination</p>
+                <h1 class="home-title1">STUDIO SONAGI</h1>
             </div>           
         </div>
     </div>
     <div class="box">
-        <div class="background2">
-            <div class="background2_text">
-                <h2 class="background2_title">스튜디오 소나기</h2>
-                <P>스튜디오 소나기는 소나기사운드웍스의 브랜드 네임입니다.</P>
-                <P>스튜디오 소나기의 사운드 스튜디오와 버추얼 스튜디오를</P>
-                <p>통해 퀄리티 높은 콘텐츠를 경험하시게 될 것입니다.</p>
+        <div class="home-container2 home-bg2">
+            <div class="home-text-box2">
+                <h2 class="home-title2">스튜디오 소나기</h2>
+                <P class="home-text2">스튜디오 소나기는 소나기사운드웍스의 브랜드 네임입니다.</P>
+                <P class="home-text2">스튜디오 소나기의 사운드 스튜디오와 버추얼 스튜디오를</P>
+                <p class="home-text2">통해 퀄리티 높은 콘텐츠를 경험하시게 될 것입니다.</p>
+                <div>
+                    <a class="studio-link" href="/virtual">소나기버추얼스튜디오 &gt</a>
+                    <a class="studio-link" href="/sound">소나기사운드웍스 &gt</a>
+                </div>
             </div>
         </div>
     </div>
-    <div class="box">
-        <div class="background3">
-            <div class="background3_info">
-                <div class="icon_box">
-                    <a class="icon" href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a class="icon" href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a class="icon" href="#"><i class="fa-brands fa-youtube"></i></a>
-                    <a class="icon" href="#"><i class="fa fa-a"></i></a>
+    <div class="footer-container">
+        <div class="footer-wrapper">
+            <div class="icon-box" id="sns-box"></div>
+            <p class="footer-title">상호명: 주식회사 소나기사운드웍스 | 대표: 박주강 | 사업자등록번호: 309-87-01246</p>
+            <div class="footer-boxes">
+                <div class="footer-box">
+                    <p class="footer-studio">소나기사운드웍스</p>
+                    <p class="footer-info"><i class="fa-solid fa-location-dot"></i> 경기도 성남시 중원구 사기막골로 177, 418호</p>
+                    <p class="footer-info"><i class="fa-solid fa-envelope"></i> sonagisound@gmail.com  
+                    <i class="fa-solid fa-phone"></i> 070-4485-8776</p>
                 </div>
-                <p class="under_title">상호명: 주식회사 소나기사운드웍스 | 대표: 박주강 | 사업자등록번호: 309-87-01246</p>
-                <div class="under_wrap">
-                    <div class="under_box">
-                        <p class="under_studio">사운드스튜디오</p>
-                        <p class="under_info"><i class="fa-solid fa-location-dot"></i> 경기도 성남시 중원구 사기막골로 177, 418호</p>
-                        <p class="under_info"><i class="fa-solid fa-envelope"></i> sonagisound@gmail.com  
-                        <i class="fa-solid fa-phone"></i> 070-4485-8776</p>
-                    </div>
-                    <div class="under_box">
-                        <p class="under_studio">버추얼스튜디오</p>
-                        <p class="under_info"><i class="fa-solid fa-location-dot"></i> 서울특별시 금천구 벛꽃로 14길 12, 1층</p>
-                        <p class="under_info"><i class="fa-solid fa-envelope"></i> sonagiled@gmail.com  
-                        <i class="fa-solid fa-phone"></i> 010-4145-0408</p>
-                    </div>
+                <div class="footer-box">
+                    <p class="footer-studio">소나기버추얼스튜디오</p>
+                    <p class="footer-info"><i class="fa-solid fa-location-dot"></i> 서울특별시 금천구 벛꽃로 14길 12, 1층</p>
+                    <p class="footer-info"><i class="fa-solid fa-envelope"></i> sonagiled@gmail.com  
+                    <i class="fa-solid fa-phone"></i> 010-4145-0408</p>
                 </div>
-                <a class="copyright" href="/">COPYRIGHT © SONAGI SOUNDWORKS ALL RIGHTS RESERVED.</a>
             </div>
+                <div class="footer-link-box"><a class="footer-link" href="/terms">이용약관</a> | <a class="footer-link" href="/policy">개인정보 처리방침</a></div>
+            <a class="copyright" href="/admin">COPYRIGHT © SONAGI SOUNDWORKS ALL RIGHTS RESERVED.</a>
         </div>
     </div>
-    <!-- 아이폰사이즈 -->
-    <script type="text/javascript">
-        let vh = window.innerHeight * 0.01
-        document.documentElement.style.setProperty('--vh', `${vh}px`)
-    </script>
-    <!-- 글자 올라오기 -->
-    <script type="text/javascript">
-        window.addEventListener("scroll", function(){
-            const sections = document.querySelectorAll(".background2_text")
-            for (const i = 0; i < sections.length; i++) {
-                const windowHeight = window.innerHeight;
-                const elementTop = sections[i].getBoundingClientRect().top;
-                const elementVisible = 0;
-
-                if (elementTop < windowHeight - elementVisible) {
-                    sections[i].classList.add("active");
-                } else {
-                    sections[i].classList.remove("active");
-                }
-            }
-        });
-    </script>
-    <!-- 토글버튼 -->
-    <script type="text/javascript">
-        const toggleBtn = document.querySelector('.nav_btn');
-        const menu = document.querySelector('.nav_menu');
-        toggleBtn.addEventListener('click',()=>{
-        menu.classList.toggle('active');
-        });
-    </script>
+    <div>
+        <button id="top-btn">^</button>
+    </div>
+    <!-- js -->
+    <script src="{{ url_for('static', filename='toggleBtn.js') }}"></script>
+    <script src="{{ url_for('static', filename='textMoveUp.js') }}"></script>
+    <script src="{{ url_for('static', filename='iphoneSize.js') }}"></script>
+    <script src="{{ url_for('static', filename='sns.js') }}"></script>
+    <script src="{{ url_for('static', filename='scrollTop.js') }}"></script>
 </body>
 </html>

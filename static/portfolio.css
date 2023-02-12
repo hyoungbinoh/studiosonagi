@@ -1,0 +1,123 @@
+.portfolio-wrap {       
+    width: 100%;
+    text-align: center;
+}
+.portfolio-title {
+    font-size: 30px;
+}
+.portfolio-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    color: white;
+    width: 100%;
+}
+.portfolio-box {
+    width: 100%; 
+    padding-bottom: 70px;           
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(700px, max-content));
+    justify-content: center;
+}
+.portfolio-img{
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    width: 600px;
+    height: 337.5px;
+    margin: 50px 50px 0px 50px;
+    border-radius: 10px;
+}
+.portfolio-img > img{
+    width: 600px;
+    height: 337.5px;
+
+}
+.portfolio-img:hover > img{
+    transform: scale(1.1);
+    transition: 1s;
+}
+.portfolio-text {
+    color: white;
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+.portfolio-span {
+    font-size: 14px;
+    margin-left: 2px;
+}
+.portfolio-none {
+    margin-top: calc(40vh - 100px);
+    font-size: 48px;
+    font-weight: bold;
+    padding-left: 5px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.portfolio-detail-wrap {
+    display: flex; 
+    flex-direction:column; 
+    justify-content:center;
+}
+.portfolio-detail-title {
+    display: flex; 
+    align-items: center;
+}
+.portfolio-detail-img {
+    width: 80vw;
+    height: 45vw;
+    margin: 2vw 0px;
+    border-radius: 10px;
+}
+.sample-detail-text {
+    width: 80vw; 
+    word-break: keep-all;
+    margin: 2vw 0px;
+}
+.portfolio-detail-btn {
+    text-align: center;
+    border: 1px white solid;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    background-color: transparent;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    width: 200px;
+    margin: 20px 0px 60px 0px;
+}
+.portfolio-detail-btn:hover {
+    background-color: white;
+    color: black;
+}
+/* 모바일 사이즈 */
+@media screen and (max-width: 1024px) {
+    .portfolio-box {
+        grid-template-columns: repeat(auto-fit, minmax(360px, max-content));
+    }
+    .portfolio-img {
+        width: 300px;
+        height: 168.75px;
+        margin: 30px 30px 0px 30px;
+    }
+    .portfolio-text {
+        font-size: 15px;
+    }
+    .portfolio-span {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .portfolio-top {
+        font-size: 25px;
+    }
+
+    .portfolio-none {
+        font-size: 28px;
+    }
+}

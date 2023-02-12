@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="{{ url_for('static', filename='소나기로고.png') }}" rel="shortcut icon" type="image/x-icon">
+
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/8c330d8a63.js" crossorigin="anonymous"></script>
+
+    <!-- font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">   
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+
+    <!-- css -->
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='header.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='admin.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='sns.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='login.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='footer.css') }}" rel="stylesheet" type="text/css">
+
+    <style>
+        .login-container {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 1)), url("{{ url_for('static', filename='소나기관리자페이지_배경1.JPG') }}");
+        }
+    </style>
+
+    <title>스튜디오 소나기 관리자페이지</title>
+</head>
+<body>
+    {% if login == True %}
+    <nav class="nav-bar">
+        <ul class="nav-menu">
+            <li class="nav-list"><a class="nav-link" href="/admin">관리자홈</a></li>
+            <li class="nav-list"><a class="nav-link" href="/portfolio_admin">포트폴리오</a></li>
+            <li class="nav-list"><a class="nav-link" href="/sample_admin">샘플맵</a></li>
+            <li class="nav-list"><a class="nav-link" href="/contact_admin">예약관리</a></li>
+            <li class="nav-list"><a class="nav-link" href="/filmography_admin">필모그래피</a></li>
+            <li><a class="nav-link" style="color: lightcoral;" href={{url_for("logout")}}>로그아웃</a></li>
+        </ul>
+        <a href="#" class="nav-btn"><i class="fas fa-bars"></i></a>
+    </nav>
+    <div class="admin-container">
+        <div class="admin-wrap">
+            <div class="admin-top">
+            <h1 class="admin-title">관리자페이지</h1>
+            </div>
+            <div class="admin-box">
+                <form  id="ADMIN_FORM" method="post" enctype="multipart/form-data">
+                    <h3 class="admin-sub-title">관리자 정보 변경</h3>
+                    <div>
+                        <label for="admin-id" class="admin-label">아이디</label>
+                        <input value="sonagiadmin" id="admin-id" disabled>
+                    </div>
+                    <div>
+                        <label for="admin-pw" class="admin-label">비밀번호</label>
+                        <input class="admin-input" type="password" id="admin-pw" autocomplete="off">
+                    </div>
+                    <div>
+                        <label for="admin-pw-check" class="admin-label">비번확인</label>
+                        <input class="admin-input" type="password" id="admin-pw-check" autocomplete="off">
+                    </div>
+                </form>
+                <div>
+                    <button class="admin-btn" onclick="changeAdmin()" type="button">변경하기</button>
+                </div>
+            </div>
+            <div class="admin-box" style="margin: 50px auto;">
+                <h3 class="admin-sub-title">SNS 주소 변경</h3>
+                <div id="sns-admin"></div>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <a href="/"><img class="logo" src="{{ url_for('static', filename='로고.png') }}" alt="logo"></div>
+    <nav class="nav-bar">
+        <ul class="nav-menu">
+            <li class="nav-list"><a class="nav-link" href="/virtual">VIRTUAL STUDIO</a></li>
+            <li class="nav-list"><a class="nav-link" href="/portfolio">PORTFOLIO</a></li>
+            <li class="nav-list"><a class="nav-link" href="/sample">3D MAP</a></li>
+            <li class="nav-list"><a class="nav-link" href="/contact">RESERVATION</a></li>
+            <li class="nav-list"><a class="nav-link" href="/sound">SOUND WORKS</a></li>
+            <li class="nav-list"><a class="nav-link" href="/filmography">FILMOGRAPHY</a></li>
+        </ul>
+        <a href="#" class="nav-btn"><i class="fas fa-bars"></i></a>
+    </nav>
+    <form method="get" id="login" class="login-container" action={{url_for("login")}}>
+        <div class="login-wrap">
+            <p class="login-logo">STUDIO SONAGI</p>
+            <input type="id" id="loginId" name="loginId" class="login-common" placeholder="ID"/>
+            <input type="password" id="loginPw" name="loginPw" class="login-common" placeholder="Password"/>
+            <button type="submit" class="login">로그인</button>
+        </div>
+    </form>
+    <div class="footer-container">
+        <div class="footer-wrapper">
+            <div class="icon-box" id="sns-box"></div>
+            <p class="footer-title">상호명: 주식회사 소나기사운드웍스 | 대표: 박주강 | 사업자등록번호: 309-87-01246</p>
+            <div class="footer-boxes">
+                <div class="footer-box">
+                    <p class="footer-studio">소나기사운드웍스</p>
+                    <p class="footer-info"><i class="fa-solid fa-location-dot"></i> 경기도 성남시 중원구 사기막골로 177, 418호</p>
+                    <p class="footer-info"><i class="fa-solid fa-envelope"></i> sonagisound@gmail.com  
+                    <i class="fa-solid fa-phone"></i> 070-4485-8776</p>
+                </div>
+                <div class="footer-box">
+                    <p class="footer-studio">소나기버추얼스튜디오</p>
+                    <p class="footer-info"><i class="fa-solid fa-location-dot"></i> 서울특별시 금천구 벛꽃로 14길 12, 1층</p>
+                    <p class="footer-info"><i class="fa-solid fa-envelope"></i> sonagiled@gmail.com  
+                    <i class="fa-solid fa-phone"></i> 010-4145-0408</p>
+                </div>
+            </div>
+                <div class="footer-link-box"><a class="footer-link" href="/terms">이용약관</a> | <a class="footer-link" href="/policy">개인정보 처리방침</a></div>
+            <a class="copyright" href="/admin">COPYRIGHT © SONAGI SOUNDWORKS ALL RIGHTS RESERVED.</a>
+        </div>
+    </div>
+    {% endif %}
+    <script src="{{ url_for('static', filename='admin.js') }}"></script>
+    <script src="{{ url_for('static', filename='sns.js') }}"></script>
+    <script src="{{ url_for('static', filename='toggleBtn.js') }}"></script>
+</body>
+</html>
+

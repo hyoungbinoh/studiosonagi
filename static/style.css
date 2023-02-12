@@ -1,0 +1,79 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+html::-webkit-scrollbar {
+    width: 14px;
+    background-color: gray;
+}
+
+html::-webkit-scrollbar-thumb {
+    width: 14px;
+    background-color: white;
+}
+
+.common-container {
+    background-color: black;           
+    width: 100%;
+    min-height: 100vh;
+    background-position: center;
+    background-size: cover;
+}
+
+.common-wrap {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 100px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: white;
+    width: 100%;
+}
+
+.common-background{
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+}
+
+.common-title {
+    font-size: 30px;
+    color: white;
+}
+
+#top-btn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    line-height: 60px;
+    font-size: 40px;
+    border-radius: 10px;
+    border: 1px solid white;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+#top-btn:hover {
+    color: black;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    background-color: white;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 425px) {
+    .common-title {
+        font-size: 22px;
+    }
+}
