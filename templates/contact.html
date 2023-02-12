@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:title" content="스튜디오 소나기"/>
+    <meta property="og:description" content="스튜디오 소나기는 소나기 사운드웍스의 브랜드 네임으로, 사운드 스튜디오와 버추얼 스튜디오로 이루어져 있습니다."/>
+    <meta property="og:image" content="{{ url_for('static', filename='소나기버추얼스튜디오_배경1.JPG') }}"/>
+
+    <!-- naver -->
+    <meta name="naver-site-verification" content="5216e2425c8d664ca1044ba4ce93ad006a4159ef" />
+    <!-- google -->
+    <meta name="google-site-verification" content="6PUIkpo3ZS8oODBmeIU32yTk8MRxJYL_pzkJohBgr28" />
+
+    <link href="{{ url_for('static', filename='소나기로고.png') }}" rel="shortcut icon" type="image/x-icon">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+     <!-- <fontawesome> -->
+    <script src="https://kit.fontawesome.com/8c330d8a63.js" crossorigin="anonymous"></script>
+
+    <!-- kakao -->
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=e7d72bbbefb241406c90a501568226f0"></script>
+
+    <!-- font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">   
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700&display=swap" rel="stylesheet">   
+    
+
+    <title>스튜디오 소나기</title>
+    
+    <style>
+        .html, body {
+            margin: 0;
+            padding: 0;
+        }
+        /* 메뉴바 */
+        .logo {
+            position: fixed;
+            width: 170px;
+            z-index: 5;
+            margin: 25px 0px 0px 25px;
+        }
+        .nav_bar {
+            background-color: black;
+            opacity: 0.8;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 30px 0px;             
+            position: fixed;
+            display: flex;
+            z-index: 4;
+            font-family: 'Roboto', sans-serif;
+        }
+        .nav_menu {
+            margin: auto;
+            padding-left: 0;
+            display: flex;
+            list-style: none;
+        }
+        .nav_link {
+            margin: 15px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;   
+        }
+        .nav_btn {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 30px;
+            color: white;
+        }
+        .nav_link:hover {
+            text-decoration: underline;
+            font-weight: bold;
+            color: #ae22ff;
+        }
+        /* 배경 */
+        .background1 {
+            background-color: black;
+            width: 100%;
+            overflow: hidden;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 1)), url("{{ url_for('static', filename='콘택트사진.jpg') }}");
+            background-position: center;
+            background-size: cover;
+            padding-top: 100px;
+            text-align: center;
+        }
+        h1 {
+            color: white;
+            font-size: 30px;
+            font-family: 'Roboto', sans-serif;
+            margin: 20px auto 50px auto;
+        }
+        .contact{
+            width: 60vw;
+            margin: auto;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: white;
+            justify-content: center;
+            align-items: center;
+        }
+        .contact_box {
+            border: solid 1px  rgba(255, 255, 255, 0.1);
+            background-color:  rgba(255, 255, 255, 0.1);
+            max-width: 500px;
+            min-width: 300px;
+            flex: auto;
+            margin: 10px 18px;
+            padding: 20px;
+            font-size: 18px;
+            border-radius: 10px;
+        }
+        .contact_box > h3 {
+            font-style: italic;
+            line-height: 100%;
+        }
+        .input_box {
+            margin: 50px auto 20px auto;
+        }
+        label {
+            color: white;
+            display: inline-block;
+            width: calc(60vw + 12px);
+            height: 34px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: bold;
+            vertical-align: top;
+            font-family: 'Roboto', sans-serif;
+        }
+        input {
+            width: 60vw;
+            height: 30px;
+            margin-bottom: 20px;
+            padding: 5px;
+            line-height: 30px;           
+            background-color: transparent;
+            border: 1px solid white;
+            border-radius: 5px;
+            color: white;
+            font-size: 14px;   
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        select {
+            width: calc(60vw + 12px);
+            height: 40px;
+            margin-bottom: 20px;
+            padding: 5px;
+            line-height: 40px;           
+            background-color: transparent;
+            border: 1px solid white;
+            border-radius: 5px;
+            color: white;
+            font-size: 14px;   
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        option {
+            background-color: black;
+        }
+        .container { 
+            vertical-align: middle;
+        }
+        textarea {
+            width: 60vw;
+            height: 160px;
+            margin-bottom: 20px;
+            padding: 5px;
+            top: 10px;
+            background-color: transparent;
+            border: 1px solid white;
+            border-radius: 5px;
+            color: white;
+            font-size: 14px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .send_message {
+            width: calc(60vw + 12px);
+            height: 40px;         
+            border: 1px solid white;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;            
+            font-family: 'Roboto', sans-serif;
+        }
+        .send_message:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: black;
+            cursor: pointer;
+        }
+        /* 지도 */
+        h2 {
+            color: white;
+            font-size: 30px;
+            font-family: 'Roboto', sans-serif;
+            margin: 40px;
+            text-align: center;
+        }
+        .background2 {
+            background-color: black;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .map_box {
+            margin:0px auto 50px auto;
+        }
+        .map {
+            margin: auto;
+            width: 60vw;
+            height: 35vw;
+        }
+        .map_title {
+            color: white;
+            margin: 14px auto;
+            text-align: center;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 20px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .map_address {
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .address_dot {
+            z-index: 10;
+        }
+        .customoverlay {
+            position:relative;
+            bottom:55px;
+            border-radius:6px;
+            border: 1px solid #ccc;
+            border-bottom:2px solid #ddd;
+            float:left;
+        }
+        .customoverlay:nth-of-type(n) {
+            border:0; 
+            box-shadow:0px 1px 2px #888;
+        }
+        .customoverlay a {
+            display:block;
+            text-decoration:none;
+            color:#000;
+            text-align:center;
+            border-radius:6px;
+            font-size:14px;
+            font-weight:bold;
+            overflow:hidden;
+            background: #238cfa;
+            background: #238cfa url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png') no-repeat right 14px center;
+        }
+        .customoverlay .title {
+            display:block;
+            text-align:center;
+            background:#fff;
+            margin-right:35px;
+            padding:10px 15px;
+            font-size:14px;
+            font-weight:bold;
+        }
+        .customoverlay:after {
+            content:'';
+            position:absolute;
+            margin-left:-12px;
+            left:50%;
+            bottom:-12px;
+            width:22px;
+            height:12px;
+            background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+        /* 하단 */
+        .background3 {
+            background-color:rgb(40, 40, 40);
+            width: 100%;
+            height: 300px;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: white;
+        }
+        .background3_info {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .social_media {
+            margin: auto;
+            padding: 20px;
+        }
+        .copyright {
+            color: white;
+            font-size: 12px;
+            text-decoration: none;
+        }
+        .icon {
+            font-size: 20px;
+            color: white;
+            margin: 0px 10px;
+        }
+        .fa-a:before {
+            font-family: 'Kanit', sans-serif;
+            font-size: 25px;
+            font-weight: bold;
+            content: 'N';
+        }
+        .blog {
+            width: 30px;
+        }
+        .under_title {
+            margin: 10px 0px;
+            font-size: 16px;
+            word-break: keep-all;
+        }
+        .under_wrap {
+            display:flex; 
+            text-align: center; 
+            margin: auto; 
+            justify-content: center; 
+            align-items: center;
+            margin: 35px 0px 30px 0px;
+        }
+        .under_box {
+            width: 350px;
+            margin: 0px 2vw 0px 2vw; 
+            padding: 10px 3vw; 
+            border: 1px solid white; 
+            border-radius: 10px;
+        }
+        .under_studio {
+            font-size: 16px;
+            margin: 5px;
+        }
+        .under_info {
+            font-size: 14px;
+            margin: 5px;
+        }
+        /* 태블릿 */
+        @media screen and (max-width: 1200px) {
+            .nav_bar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 40.5px 0px;
+                margin: 0;
+            }
+            .nav_menu {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                margin-top: 30vh;
+                margin-bottom: 50vh;
+            }
+            .nav_link{
+                width: 100%;
+                text-align: center;
+                line-height: 50px;
+            }
+            .nav_btn {
+                display: block;
+            }
+            .nav_menu.active{
+                display: flex;
+            }
+            .under_wrap {
+                display: none;
+            }
+        }
+        /* 모바일 */
+        @media screen and (max-width: 800px) {
+            .contact {
+                width: 90vw;
+            }
+            .contact_box {
+                font-size: 16px;
+                margin: 10px 18px;
+            }
+            h1 {
+                font-size: 25px;
+                margin: 20px auto 30px auto;
+            }
+            label {
+                width: calc(90vw + 12px);
+                height: 27px;
+                font-size: 14px;
+            }
+            .input_box {
+            margin: 30px auto 10px auto;
+            }
+            input{
+                width: 90vw;
+                height: 30px;
+                margin-bottom: 15px;
+                line-height: 40px;
+                font-size: 12px;
+            }
+            select {
+                width: calc(90vw + 12px);
+                height: 40px;
+                margin-bottom: 15px;
+                padding: 5px;
+                font-size: 12px;
+            }
+            textarea {
+                width: 90vw;
+                height: 100px;
+                margin-bottom: 14px;
+                padding: 5px;
+                top: 10px;
+                font-size: 12px;
+            }
+            .send_message_label {
+                display: none;
+            }
+            .send_message {
+                width: calc(90vw + 12px);
+                height: 40px;
+                background-color: rgba(255, 255, 255, 0.9);
+                color: black;
+                font-size: 16px;
+            }
+            h2{
+                font-size: 25px;
+                margin: 30px;
+            }
+            .map_box {
+                margin:0px auto 30px auto;
+            }
+            .map {
+            /* background-color: red; */
+                margin: auto;
+                width: 90vw;
+                height: 60vw;
+            }
+            .customoverlay .title {
+                font-size: 12px;
+            }
+            .map_title {
+                font-size: 16px;
+            }
+            .map_address {
+                font-size: 14px;
+            }
+            .under_title {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 메뉴바 -->
+    <a href="/"><img class="logo" src="{{ url_for('static', filename='로고.png') }}" alt="로고"></div>
+    <nav class="nav_bar">
+        <ul class="nav_menu">
+            <li class="nav_list"><a class="nav_link" href="/">HOME</a></li>
+            <li class="nav_list"><a class="nav_link" href="/sound">SOUND STUDIO</a></li>
+            <li class="nav_list"><a class="nav_link" href="/virtual">VIRTUAL STUDIO</a></li>
+            <li class="nav_list"><a class="nav_link" href="/filmography">FILMOGRAPHY</a></li>
+            <li class="nav_list"><a class="nav_link" href="/contact">CONTACT</a></li>
+        </ul>
+        <a href="#" class="nav_btn"><i class="fas fa-bars"></i></a>
+    </nav>
+    <!-- 배경 -->
+    <div class="background1">
+        <h1>CONTACT US</h1>
+        <div class="contact">
+            <div class="contact_box">
+                <h3>SOUND STUDIO</h3>
+                <p><i class="fa-solid fa-envelope"></i> sonagisound@gmail.com</p>
+                <p><i class="fa-solid fa-phone"></i> 070-4485-8776</p>
+            </div>
+            <div class="contact_box">
+                <h3>VIRTUAL STUDIO</h3>
+                <p><i class="fa-solid fa-envelope"></i> sonagiled@gmail.com</p> 
+                <p><i class="fa-solid fa-phone"></i> 010-4145-0408</p>
+            </div>
+        </div>
+        <div class="input_box">
+            <div>
+                <label for="name">NAME</label>
+                <input type="text" placeholder="성명 또는 회사명을 입력해주세요." id="name">
+            </div>
+            <div>    
+                <label for="phone">PHONE</label>
+                <input type="tel" placeholder="휴대전화 번호를 입력해주세요.('-'없이 입력)" id="phone"> 
+            </div>
+            <div>
+                <label for="email">EMAIL</label>
+                <input type="email" placeholder="이메일 주소를 입력해주세요." id="email"> 
+            </div>
+            <div>
+                <label for="studio">STUDIO</label>
+                <select id="studio">
+                    <option value="">스튜디오를 선택해주세요.</option>
+                    <option value="SOUND_STUDIO">SOUND STUDIO</option>
+                    <option value="VIRTUAL_STUDIO">VIRTUAL STUDIO</option>
+                </select>
+            </div>
+            <div>
+                <label for="produce">PURPOSE</label>
+                <input type="text" placeholder="사용 목적을 입력해주세요.(ex.영화제작)" id="produce">
+            </div>
+            <div class="container">
+                <label for="message">MESSAGE</label>
+                <textarea cols="10" name="content" placeholder="제작일정, 기술지원 등 상담내용을 입력해주세요." id="message"></textarea>
+            </div>
+            <div>
+                <button onclick="sendMessage()" type="button" class="send_message" id="send_message">SEND</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 지도 -->
+    <div>
+        <div class="background2">
+            <h2>LOCATION</h2>
+            <div class="map_box">
+                <p class="map_title">Virtual Studio</p>
+                <div id="map1" class="map"></div>
+                <p class="map_address">서울특별시 금천구 벛꽃로 14길 12, 1층</p>
+            </div>
+            <div class="map_box">
+                <p class="map_title">Sound Studio (Mix. Stage)</p>
+                <div id="map2" class="map"></div>
+                <p class="map_address">경기도 성남시 중원구 사기막골로 177, 418호</p>
+            </div>
+            <div class="map_box" style="margin-bottom: 60px;">
+                <p class="map_title">Sound Studio (Rec & Edit. Stage)</p>
+                <div id="map3" class="map"></div>
+                <p class="map_address">서울특별시 강남구 테헤란로 30길 19, 지하 1층</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="background3">
+        <div class="background3_info">
+            <div class="icon_box">
+                <a class="icon" href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a class="icon" href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a class="icon" href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a class="icon" href="#"><i class="fa fa-a"></i></a>
+            </div>
+            <p class="under_title">상호명: 주식회사 소나기사운드웍스 | 대표: 박주강 | 사업자등록번호: 309-87-01246</p>
+            <div class="under_wrap">
+                <div class="under_box">
+                    <p class="under_studio">사운드스튜디오</p>
+                    <p class="under_info"><i class="fa-solid fa-location-dot"></i> 경기도 성남시 중원구 사기막골로 177, 418호</p>
+                    <p class="under_info"><i class="fa-solid fa-envelope"></i> sonagisound@gmail.com  
+                    <i class="fa-solid fa-phone"></i> 070-4485-8776</p>
+                </div>
+                <div class="under_box">
+                    <p class="under_studio">버추얼스튜디오</p>
+                    <p class="under_info"><i class="fa-solid fa-location-dot"></i> 서울특별시 금천구 벛꽃로 14길 12, 1층</p>
+                    <p class="under_info"><i class="fa-solid fa-envelope"></i> sonagiled@gmail.com  
+                    <i class="fa-solid fa-phone"></i> 010-4145-0408</p>
+                </div>
+            </div>
+            <a class="copyright" href="/">COPYRIGHT © SONAGI SOUNDWORKS ALL RIGHTS RESERVED.</a>
+        </div>
+    </div>
+
+    <script>
+        var getMail = RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/);
+        var getPhone = RegExp(/^\d{10,11}$/);
+
+        function sendMessage() {
+            let name = $('#name').val()
+            let phone = $('#phone').val()
+            let email = $('#email').val()
+            let studio = $('#studio').val()
+            let produce = $('#produce').val()
+            let message = $('#message').val()
+
+                if(name == "") {
+                    alert("이름을 입력해주세요.");
+                    return false;
+                }
+                
+                if(phone == "") {
+                    alert("휴대전화 번호를 입력해주세요.");
+                    return false;
+                }
+
+                if(!getPhone.test(phone)) {
+                    alert("잘못된 전화번호 형식입니다.('-'없이 입력)");
+                    return false;
+                }
+
+                if(email =="") {
+                    alert("이메일을 입력해주세요.");
+                    return false;
+                }
+
+                if(!getMail.test(email)) {
+                    alert("잘못된 이메일 형식입니다.");
+                    return false;
+                }
+
+                if(studio == "") {
+                    alert("스튜디오를 선택해주세요.");
+                    return false;
+                }
+
+                if(produce == "") {
+                    alert("무엇을 제작하는지 선택해주세요.(ex.영화, 드라마 등)");
+                    return false;
+                }
+
+                if(message == "") {
+                    alert("상담내용을 입력해주세요.");
+                    return false;
+                }
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/message",
+                    data: {name_give:name,phone_give:phone,email_give:email,studio_give:studio,produce_give:produce,message_give:message},
+                    success: function (response) {
+                        alert(response["msg"]);
+                        window.location.reload();
+                    }
+                })
+            }
+    </script>
+    
+    
+    <script type="text/javascript">
+        var mapContainer = document.getElementById('map1'), // 지도를 표시할 div 
+            mapOption = { 
+                center: new kakao.maps.LatLng(37.46540, 126.89070), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+        // 마커가 표시될 위치입니다 
+        var markerPosition  = new kakao.maps.LatLng(37.46540, 126.89070); 
+
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            position: markerPosition
+        });
+
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(map);
+
+        // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        var content = '<div class="customoverlay">' +
+            '  <a href="https://map.kakao.com/link/map/소나기버추얼스튜디오, 37.46540, 126.89070" target="_blank">' +
+            '    <span class="title">서울 금천구 벚꽃로 14길 12, 1층</span>' +
+            '  </a>' +
+            '</div>';
+
+        // 커스텀 오버레이가 표시될 위치입니다 
+        var position = new kakao.maps.LatLng(37.46540, 126.89070);  
+
+        // 커스텀 오버레이를 생성합니다
+        var customOverlay = new kakao.maps.CustomOverlay({
+            map: map,
+            position: position,
+            content: content,
+            yAnchor: 1 
+        });
+    </script>
+    
+    <script type="text/javascript">
+        var mapContainer = document.getElementById('map2'), // 지도를 표시할 div 
+            mapOption = { 
+                center: new kakao.maps.LatLng(37.44441, 127.17798), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+        // 마커가 표시될 위치입니다 
+        var markerPosition  = new kakao.maps.LatLng(37.44441, 127.17798); 
+
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            position: markerPosition
+        });
+
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(map);
+
+        // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        var content = '<div class="customoverlay">' +
+            '  <a href="https://map.kakao.com/link/map/소나기사운드웍스, 37.44441, 127.17798" target="_blank">' +
+            '    <span class="title">경기 성남시 중원구 사기막골로 177, 418호</span>' +
+            '  </a>' +
+            '</div>';
+
+        // 커스텀 오버레이가 표시될 위치입니다 
+        var position = new kakao.maps.LatLng(37.44441, 127.17798);  
+
+        // 커스텀 오버레이를 생성합니다
+        var customOverlay = new kakao.maps.CustomOverlay({
+            map: map,
+            position: position,
+            content: content,
+            yAnchor: 1 
+        });
+    </script>
+
+    <script type="text/javascript">
+        var mapContainer = document.getElementById('map3'), // 지도를 표시할 div 
+            mapOption = { 
+                center: new kakao.maps.LatLng(37.49998, 127.03970), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+        // 마커가 표시될 위치입니다 
+        var markerPosition  = new kakao.maps.LatLng(37.49998, 127.03970); 
+
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            position: markerPosition
+        });
+
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(map);
+
+                // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        var content = '<div class="customoverlay">' +
+            '  <a href="https://map.kakao.com/link/map/소나기사운드웍스, 37.49998, 127.03970" target="_blank">' +
+            '    <span class="title">서울 강남구 테헤란로30길 19, 지하 1층</span>' +
+            '  </a>' +
+            '</div>';
+
+        // 커스텀 오버레이가 표시될 위치입니다 
+        var position = new kakao.maps.LatLng(37.49998, 127.03970);  
+
+        // 커스텀 오버레이를 생성합니다
+        var customOverlay = new kakao.maps.CustomOverlay({
+            map: map,
+            position: position,
+            content: content,
+            yAnchor: 1 
+        });
+    </script>
+    <!-- 토글버튼 -->
+    <script type="text/javascript">
+        const toggleBtn = document.querySelector('.nav_btn');
+        const menu = document.querySelector('.nav_menu');
+        toggleBtn.addEventListener('click',()=>{
+        menu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

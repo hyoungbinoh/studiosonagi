@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:title" content="소나기사운드웍스"/>
+    <meta property="og:description" content="저희 소나기사운드웍스는 영화, 드라마, 애니메이션 등 다양한 매체에서의 사운드 디자인, 믹싱 및 사운드 후반작업을 전문적으로 하는 사운드 스튜디오입니다."/>
+    <meta property="og:image" content="{{ url_for('static', filename='소나기사운드웍스_배경1.JPG') }}"/>
+
+    <!-- naver -->
+    <meta name="naver-site-verification" content="5216e2425c8d664ca1044ba4ce93ad006a4159ef" />
+    <!-- google -->
+    <meta name="google-site-verification" content="6PUIkpo3ZS8oODBmeIU32yTk8MRxJYL_pzkJohBgr28" />
+
+    <link href="{{ url_for('static', filename='소나기로고.png') }}" rel="shortcut icon" type="image/x-icon">
+
+    <!-- <fontawesome> -->
+        <script src="https://kit.fontawesome.com/8c330d8a63.js" crossorigin="anonymous"></script>
+
+    <!-- font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700&display=swap" rel="stylesheet">       
+
+    <title>스튜디오 소나기</title>
+
+    <style>
+        html, body{
+            margin: 0;
+            padding: 0;
+        }
+        /* 메뉴바 */
+        .logo {
+            position: fixed;
+            width: 170px;
+            z-index: 5;
+            margin: 25px 0px 0px 25px;
+        }
+        .nav_bar {
+            background-color: black;
+            opacity: 0.8;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 30px 0px;             
+            position: fixed;
+            display: flex;
+            z-index: 4;
+            font-family: 'Roboto', sans-serif;
+        }
+        .nav_menu {
+            margin: auto;
+            padding-left: 0;
+            display: flex;
+            list-style: none;
+        }
+        .nav_link {
+            margin: 15px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;     
+        }
+        .nav_btn {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 30px;
+            color: white;
+        }
+        .nav_link:hover {
+            text-decoration: underline;
+            font-weight: bold;
+            color: #ae22ff;
+        }
+        /* 배경 */
+        .background1 {
+            background-color: black;           
+            width: 100%;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url("{{ url_for('static', filename='소나기사운드웍스_배경3.jpg') }}");
+            background-position: center;
+            background-size: cover;
+        }
+        .background1_text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 100px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 15px;
+            color: white;
+            width: 100%;
+        }
+        h1{
+            font-size: 30px;
+        }
+        .movie_box {
+            width: 100%;           
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px,max-content));
+            justify-content: center;
+        }
+        .movie_url {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            width: 300px;
+            height: 429.78px;
+            margin: 50px;
+            border-radius: 10px;  
+        }
+        .movie_img {
+            width: 300px;
+        }
+        .movie_title {
+            position: absolute;           
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 18px;
+            color: white;
+            word-break: keep-all;
+            text-align: center;
+            top: 45%;
+            left: 50%;
+            transform: translate(-55%, -50%);
+            z-index: 3;
+        }
+        .movie_url:hover:after, .movie_url:hover > .movie_title {
+            display: block;
+        }
+        .movie_url:after, .movie_title {
+            display: none;
+        }
+        .movie_url:after {
+            position: absolute;
+            content: '';
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2;
+        }
+        .movie_url:hover > .movie_img {
+            transform: scale(1.1);
+            transition: 1s;
+        }
+        /* 하단 */
+        .background2 {
+            background-color:rgb(40, 40, 40);
+            width: 100%;
+            height: 300px;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: white;
+        }
+        .background2_info {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .social_media {
+            margin: auto;
+            padding: 20px;
+        }
+        .copyright {
+            color: white;
+            font-size: 12px;
+            text-decoration: none;
+        }
+        .icon {
+            font-size: 20px;
+            color: white;
+            margin: 0px 10px;
+        }
+        .fa-a:before {
+            font-family: 'Kanit', sans-serif;
+            font-size: 25px;
+            font-weight: bold;
+            content: 'N';
+        }
+        .blog {
+            width: 30px;
+        }
+        .under_title {
+            margin: 10px 0px;
+            font-size: 16px;
+            word-break: keep-all;
+        }
+        .under_wrap {
+            display:flex; 
+            text-align: center; 
+            margin: auto; 
+            justify-content: center; 
+            align-items: center;
+            margin: 35px 0px 30px 0px;
+        }
+        .under_box {
+            width: 350px;
+            margin: 0px 2vw 0px 2vw; 
+            padding: 10px 3vw; 
+            border: 1px solid white; 
+            border-radius: 10px;
+        }
+        .under_studio {
+            font-size: 16px;
+            margin: 5px;
+        }
+        .under_info {
+            font-size: 14px;
+            margin: 5px;
+        }
+        /* 모바일 사이즈 */
+        @media screen and (max-width: 1200px) {
+            .nav_bar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 40.5px 0px;
+                margin: 0;
+            }
+            .nav_menu {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                margin-top: 30vh;
+                margin-bottom: 50vh;
+            }
+            .nav_link{
+                width: 100%;
+                text-align: center;
+                line-height: 50px;
+            }
+            .nav_btn {
+                display: block;
+            }
+            .nav_menu.active{
+                display: flex;
+            }
+            .under_wrap {
+                display: none;
+            }
+        }
+        @media screen and (max-width: 800px) {
+            h1{
+                font-size: 25px;
+            }
+            .movie_box {
+                grid-template-columns: repeat(auto-fit, minmax(180px,max-content));
+            }
+            .movie_url {
+                width: 140px;
+                height: 214.89px;
+                margin: 20px;
+            }
+            .movie_img {
+                width: 140px;
+                border-radius: 10px;
+            }
+            .under_title {
+                font-size: 14px;
+            }
+        }
+
+    </style>
+
+</head>
+<body>
+    <a href="/"><img class="logo" src="{{ url_for('static', filename='로고.png') }}" alt="로고"></div>
+    <nav class="nav_bar">
+        <ul class="nav_menu">
+            <li class="nav_list"><a class="nav_link" href="/">HOME</a></li>
+            <li class="nav_list"><a class="nav_link" href="/sound">SOUND STUDIO</a></li>
+            <li class="nav_list"><a class="nav_link" href="/virtual">VIRTUAL STUDIO</a></li>
+            <li class="nav_list"><a class="nav_link" href="/filmography">FILMOGRAPHY</a></li>
+            <li class="nav_list"><a class="nav_link" href="/contact">CONTACT</a></li>
+        </ul>
+        <a href="#" class="nav_btn"><i class="fas fa-bars"></i></a>
+    </nav>
+    <div class="background1">
+        <div class="background1_text">
+            <h1>SOUND FILMOGRAPHY</h1>
+        </div>
+        <div class="movie_box">
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=196362">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20220422_31/1650605733502pD8Hx_JPEG/movie_image.jpg" alt="공기살인">
+                <p class="movie_title">공기살인</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=201766">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20220401_37/1648780047681NHp8G_JPEG/movie_image.jpg" alt="말임씨를 부탁해">
+                <p class="movie_title">말임씨를 부탁해</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=201766">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20210609_190/1623218016233uptm2_JPEG/movie_image.jpg" alt="열아홉">
+                <p class="movie_title">열아홉</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=203721">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20210217_241/1613552832867Ef7Rb_JPEG/movie_image.jpg" alt="미션 파서블">
+                <p class="movie_title">미션 파서블</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=185911">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20190712_212/1562894260866LJH1D_JPEG/movie_image.jpg" alt="메모리즈">
+                <p class="movie_title">메모리즈</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=173842">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20191028_133/1572229718476J8ikm_JPEG/movie_image.jpg" alt="어제 일은 모두 괜찮아">
+                <p class="movie_title">어제 일은 모두 괜찮아</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=159806">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20190821_138/1566362458427V6Usp_JPEG/movie_image.jpg" alt="장사리 : 잊혀진 영웅들">
+                <p class="movie_title">장사리 : 잊혀진 영웅들</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=176625">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20190730_262/1564452902222OuteF_JPEG/movie_image.jpg" alt="밤의 문이 열린다">
+                <p class="movie_title">밤의 문이 열린다</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=153580">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20190312_100/1552354595583gzgz1_JPEG/movie_image.jpg" alt="악질경찰">
+                <p class="movie_title">악질경찰</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=169078">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20190213_142/1550020349326Pk2m3_JPEG/movie_image.jpg" alt="기묘한 가족">
+                <p class="movie_title">기묘한 가족</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=164173">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20190115_40/15475402622236yHgr_JPEG/movie_image.jpg" alt="뺑반">
+                <p class="movie_title">뺑반</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=172010">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20180730_55/1532927800050iSgEs_JPEG/movie_image.jpg" alt="상류사회">
+                <p class="movie_title">상류사회</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=172454">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20180406_37/1522991036857QqP7N_JPEG/movie_image.jpg" alt="곤지암">
+                <p class="movie_title">곤지암</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=85578">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20180314_263/1521014679282NcuID_JPEG/movie_image.jpg" alt="7년의 밤">
+                <p class="movie_title">7년의 밤</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=159311">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20180306_274/1520300631041QOrJ2_JPEG/movie_image.jpg" alt="소공녀">
+                <p class="movie_title">소공녀</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=149504">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20171229_122/1514509440369GnxtO_JPEG/movie_image.jpg" alt="1급기밀">
+                <p class="movie_title">1급기밀</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=150637">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20171013_225/1507872096788TxEL5_JPEG/movie_image.jpg" alt="남한산성">
+                <p class="movie_title">남한산성</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=137696">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20170717_299/1500255989773woYLE_JPEG/movie_image.jpg" alt="장산범">
+                <p class="movie_title">장산범</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=154112">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20170517_137/1494988360843qAvzP_JPEG/movie_image.jpg" alt="불한당 : 나쁜 놈들의 세상">
+                <p class="movie_title">불한당 : 나쁜 놈들의 세상</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=159525">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20170323_57/1490233889364cBRDP_JPEG/movie_image.jpg" alt="마리안느와 마가렛">
+                <p class="movie_title">마리안느와 마가렛</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=156623">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20190703_238/1562121936924F7JJt_JPEG/movie_image.jpg" alt="동호, 연수를 치다">
+                <p class="movie_title">동호, 연수를 치다</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=142822">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20160715_16/1468568203431zYbBs_JPEG/movie_image.jpg" alt="인천상륙작전">
+                <p class="movie_title">인천상륙작전</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=134895">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20160616_172/1466040138501VYf7a_JPEG/movie_image.jpg" alt="봉이 김선달">
+                <p class="movie_title">봉이 김선달</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=98149">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20150714_187/143683555351504YpN_JPEG/movie_image.jpg" alt="협녀, 칼의 기억">
+                <p class="movie_title">협녀, 칼의 기억</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=121048">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20150713_74/14367488229802tA3J_JPEG/movie_image.jpg" alt="암살">
+                <p class="movie_title">암살</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=115981">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20150513_61/1431481624297D8xBv_JPEG/movie_image.jpg" alt="나의 절친 악당들">
+                <p class="movie_title">나의 절친 악당들</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=107961">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20140520_296/1400550282991MwpAA_JPEG/movie_image.jpg" alt="우는 남자">
+                <p class="movie_title">우는 남자</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=107923">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20140124_268/1390525769948zPLtK_JPEG/movie_image.jpg" alt="찌라시 : 위험한 소문">
+                <p class="movie_title">찌라시 : 위험한 소문</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=93739">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20140108_218/1389170830578q18Pu_JPEG/movie_image.jpg" alt="조선미녀삼총사">
+                <p class="movie_title">조선미녀삼총사</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=99794">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20130722_208/1374462076401seeEk_JPEG/movie_image.jpg" alt="더 테러 라이브">
+                <p class="movie_title">더 테러 라이브</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=77017">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20130415_139/1365989375367os4Y1_JPEG/movie_image.jpg" alt="전국노래자랑">
+                <p class="movie_title">전국노래자랑</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=89636">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20130409_229/13654722626922EmzX_JPEG/movie_image.jpg" alt="전설의 주먹">
+                <p class="movie_title">전설의 주먹</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=72560">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20120717_85/1342520125886dDFBX_JPEG/movie_image.jpg" alt="알투비 : 리턴투베이스">
+                <p class="movie_title">알투비 : 리턴투베이스</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=78726">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20120718_209/1342589585791cltsr_JPEG/movie_image.jpg" alt="도둑들">
+                <p class="movie_title">도둑들</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=84897">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20120228_262/1330394061025Sup9v_JPEG/movie_image.jpg" alt="시체가 돌아왔다">
+                <p class="movie_title">시체가 돌아왔다</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=53741">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20120220_121/13297199672554wCnW_JPEG/movie_image.jpg" alt="화차">
+                <p class="movie_title">화차</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=87571">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20120117_128/1326792036128WSKQp_JPEG/movie_image.jpg" alt="부러진 화살">
+                <p class="movie_title">부러진 화살</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=83098">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20120125_240/1327458414656u3Cbn_JPEG/movie_image.jpg" alt="페이스 메이커">
+                <p class="movie_title">페이스 메이커</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=71628">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111224_109/13246554789677iLlv_JPEG/movie_image.jpg" alt="마이웨이">
+                <p class="movie_title">마이웨이</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=75395">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_142/1324646482436YSvXF_JPEG/movie_image.jpg" alt="의뢰인">
+                <p class="movie_title">의뢰인</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=79105">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_298/1324636015312ujFMa_JPEG/movie_image.jpg" alt="체포왕">
+                <p class="movie_title">체포왕</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=77919">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_11/1324632497753ETVc9_JPEG/movie_image.jpg" alt="사랑이 무서워">
+                <p class="movie_title">사랑이 무서워</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=73477">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_279/13246305442071SlF5_JPEG/movie_image.jpg" alt="글러브">
+                <p class="movie_title">글러브</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=52747">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_235/1324625472367kWNBr_JPEG/movie_image.jpg" alt="부당거래">
+                <p class="movie_title">부당거래</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=73318">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_36/1324623625436gK7bm_JPEG/movie_image.jpg" alt="시라노; 연애조작단">
+                <p class="movie_title">시라노 ; 연애조작단</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=71509">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_67/1324619531349Xc7vj_JPEG/movie_image.jpg" alt="아저씨">
+                <p class="movie_title">아저씨</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=52326">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_92/1324617493049722lv_JPEG/movie_image.jpg" alt="이끼">
+                <p class="movie_title">이끼</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=63268">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_159/1324607417956imwoc_JPEG/movie_image.jpg" alt="작은 연못">
+                <p class="movie_title">작은 연못</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=70399">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_143/13246078375889F2Fe_JPEG/movie_image.jpg" alt="집 나온 남자들">
+                <p class="movie_title">집 나온 남자들</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=48227">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_249/1324598282916rToPJ_JPEG/movie_image.jpg" alt="전우치">
+                <p class="movie_title">전우치</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=52074">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_152/1324594912744iqA2S_JPEG/movie_image.jpg" alt="파주">
+                <p class="movie_title">파주</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=57865">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_166/1324591011429sMMDJ_JPEG/movie_image.jpg" alt="불꽃처럼 나비처럼">
+                <p class="movie_title">불꽃처럼 나비처럼</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=49483">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_282/1324579813186mheJA_JPEG/movie_image.jpg" alt="거북이 달린다">
+                <p class="movie_title">거북이 달린다</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=59845">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_205/132457019000969gj4_JPEG/movie_image.jpg" alt="박쥐">
+                <p class="movie_title">박쥐</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=51306">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_75/1324572603254Y8Dqn_JPEG/movie_image.jpg" alt="유감스러운 도시">
+                <p class="movie_title">유감스러운 도시</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=49525">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_163/1324580679545RJvej_JPEG/movie_image.jpg" alt="미인도">
+                <p class="movie_title">미인도</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=63155">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_207/1324533353431MbyEM_JPEG/movie_image.jpg" alt="소년은 울지 않는다">
+                <p class="movie_title">소년은 울지 않는다</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=69299">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_160/1324557695072HHipU_JPEG/movie_image.jpg" alt="고고70">
+                <p class="movie_title">고고70</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=63824">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_186/1324563337863OLb03_JPEG/movie_image.jpg" alt="신기전">
+                <p class="movie_title">신기전</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=68217">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_76/13245566966411zUwg_JPEG/movie_image.jpg" alt="강철중 : 공공의 적 1-1">
+                <p class="movie_title">강철중 : 공공의 적 1-1</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=66025">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_121/1324557653903B3nBO_JPEG/movie_image.jpg" alt="걸스카우트">
+                <p class="movie_title">걸스카우트</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=65991">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_44/1324567143749EUxfp_JPEG/movie_image.jpg" alt="우리 생애 최고의 순간">
+                <p class="movie_title">우리 생애 최고의 순간</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=67921">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111224_167/1324656645087HIXPk_JPEG/movie_image.jpg" alt="불한당들">
+                <p class="movie_title">불한당들</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=66438">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_262/1324573928764trSCH_JPEG/movie_image.jpg" alt="싸움">
+                <p class="movie_title">싸움</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=66510">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_46/1324547929044cVIo4_JPEG/movie_image.jpg" alt="스카우트">
+                <p class="movie_title">스카우트</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=62167">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_62/1324525135338kzsOO_JPEG/movie_image.jpg" alt="식객">
+                <p class="movie_title">식객</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=65649">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_272/13245594485196UiVf_JPEG/movie_image.jpg" alt="권순분 여사 납치사건">
+                <p class="movie_title">권순분 여사 납치사건</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=65840">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_132/13245369665983e8Y2_JPEG/movie_image.jpg" alt="마이 파더">
+                <p class="movie_title">마이 파더</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=61699">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_170/1324519738323EoSIy_JPEG/movie_image.jpg" alt="내 생애 최악의 남자">
+                <p class="movie_title">내 생애 최악의 남자</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=65429">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_289/1324557978896PYeBX_JPEG/movie_image.jpg" alt="지금 사랑하는 사람과 살고 있습니까?">
+                <p class="movie_title">지금 사랑하는 사람과 살고 있습니까?</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=60311">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_180/1324553225881GvQnX_JPEG/movie_image.jpg" alt="황진이">
+                <p class="movie_title">황진이</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=64247">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_124/1324505338121K8dq1_JPEG/movie_image.jpg" alt="못말리는 결혼">
+                <p class="movie_title">못말리는 결혼</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=47414">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_132/1324552258533aWYLT_JPEG/movie_image.jpg" alt="우아한 세계">
+                <p class="movie_title">우아한 세계</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=45563">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_181/1324558198081YYogV_JPEG/movie_image.jpg" alt="내 여자의 남자친구">
+                <p class="movie_title">내 여자의 남자친구</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=61698">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_107/1324567301859BEymJ_JPEG/movie_image.jpg" alt="그놈 목소리">
+                <p class="movie_title">그놈 목소리</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=57718">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_153/1324527825496MUV0z_JPEG/movie_image.jpg" alt="오래된 정원">
+                <p class="movie_title">오래된 정원</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=57675">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_147/1324567349330YLKAK_JPEG/movie_image.jpg" alt="싸이보그지만 괜찮아">
+                <p class="movie_title">싸이보그지만 괜찮아</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=57723">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20211122_91/1637564743461raGXe_JPEG/movie_image.jpg" alt="타짜">
+                <p class="movie_title">타짜</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=57570">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_2/1324575022508q6XnU_JPEG/movie_image.jpg" alt="잘 살아보세">
+                <p class="movie_title">잘 살아보세</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=46330">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_44/1324574939723YrnAp_JPEG/movie_image.jpg" alt="구미호 가족">
+                <p class="movie_title">구미호 가족</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=46314">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_121/1324553973006jzu2Y_JPEG/movie_image.jpg" alt="아이스케키">
+                <p class="movie_title">아이스케키</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=41705">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_84/1324562591095UcFCp_JPEG/movie_image.jpg" alt="한반도">
+                <p class="movie_title">한반도</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=43536">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_115/1324561221898cryyq_JPEG/movie_image.jpg" alt="강적">
+                <p class="movie_title">강적</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=43537">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_219/1324537979383HEXHt_JPEG/movie_image.jpg" alt="사생결단">
+                <p class="movie_title">사생결단</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=41450">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_285/1324559687030q8ezj_JPEG/movie_image.jpg" alt="투사부일체">
+                <p class="movie_title">투사부일체</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=40134">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_154/1324559577487KR6mo_JPEG/movie_image.jpg" alt="광식이 동생 광태">
+                <p class="movie_title">광식이 동생 광태</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=40222">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_198/1324557105768JuTCe_JPEG/movie_image.jpg" alt="새드 무비">
+                <p class="movie_title">새드 무비</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=36055">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_73/1324547910104Em3MD_JPEG/movie_image.jpg" alt="사랑니">
+                <p class="movie_title">사랑니</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=39654">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_281/1324563437767d08oK_JPEG/movie_image.jpg" alt="너는 내 운명">
+                <p class="movie_title">너는 내 운명</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=39405">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_184/1324548976401Dstma_JPEG/movie_image.jpg" alt="웰컴 투 동막골">
+                <p class="movie_title">웰컴 투 동막골</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=38766">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111223_268/1324566765333lxqHM_JPEG/movie_image.jpg" alt="친절한 금자씨">
+                <p class="movie_title">친절한 금자씨</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=39442">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_80/1324527513547XcYgv_JPEG/movie_image.jpg" alt="역전의 명수">
+                <p class="movie_title">역전의 명수</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=37408">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_144/13245443548218QDoA_JPEG/movie_image.jpg" alt="마지막 늑대">
+                <p class="movie_title">마지막 늑대</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=36666">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20210303_44/1614738149021SyVpA_JPEG/movie_image.jpg" alt="태극기 휘날리며">
+                <p class="movie_title">태극기 휘날리며</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=35314">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_290/1324539537907qq6lD_JPEG/movie_image.jpg" alt="빙우">
+                <p class="movie_title">빙우</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=35991">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_32/1324561158673alJUM_JPEG/movie_image.jpg" alt="와일드 카드">
+                <p class="movie_title">와일드 카드</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=34229">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111221_224/1324469846845F7CoY_JPEG/movie_image.jpg" alt="이중간첩">
+                <p class="movie_title">이중간첩</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=34190">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_201/13245576028193CQgk_JPEG/movie_image.jpg" alt="품행 제로">
+                <p class="movie_title">품행 제로</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=34217">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_162/132455269451505ILV_JPEG/movie_image.jpg" alt="YMCA 야구단">
+                <p class="movie_title">YMCA 야구단</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=31814">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_23/13245577901261KHdx_JPEG/movie_image.jpg" alt="버스, 정류장">
+                <p class="movie_title">버스, 정류장</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=32610">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_118/1324496857220IiVKH_JPEG/movie_image.jpg" alt="공공의 적">
+                <p class="movie_title">공공의 적</p>
+            </a>
+            <a class="movie_url" href="https://movie.naver.com/movie/bi/mi/basic.naver?code=31800">
+                <img class="movie_img" src="https://movie-phinf.pstatic.net/20111222_243/1324501771744Eo3xN_JPEG/movie_image.jpg" alt="흑수선">
+                <p class="movie_title">흑수선</p>
+            </a>
+    </div>
+    <div class="background2">
+        <div class="background2_info">
+            <div class="icon_box">
+                <a class="icon" href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a class="icon" href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a class="icon" href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a class="icon" href="#"><i class="fa fa-a"></i></a>
+            </div>
+            <p class="under_title">상호명: 주식회사 소나기사운드웍스 | 대표: 박주강 | 사업자등록번호: 309-87-01246</p>
+            <div class="under_wrap">
+                <div class="under_box">
+                    <p class="under_studio">사운드스튜디오</p>
+                    <p class="under_info"><i class="fa-solid fa-location-dot"></i> 경기도 성남시 중원구 사기막골로 177, 418호</p>
+                    <p class="under_info"><i class="fa-solid fa-envelope"></i> sonagisound@gmail.com  
+                    <i class="fa-solid fa-phone"></i> 070-4485-8776</p>
+                </div>
+                <div class="under_box">
+                    <p class="under_studio">버추얼스튜디오</p>
+                    <p class="under_info"><i class="fa-solid fa-location-dot"></i> 서울특별시 금천구 벛꽃로 14길 12, 1층</p>
+                    <p class="under_info"><i class="fa-solid fa-envelope"></i> sonagiled@gmail.com  
+                    <i class="fa-solid fa-phone"></i> 010-4145-0408</p>
+                </div>
+            </div>
+            <a class="copyright" href="/">COPYRIGHT © SONAGI SOUNDWORKS ALL RIGHTS RESERVED.</a>
+        </div>
+    </div>
+    <!-- 토글버튼 -->
+    <script type="text/javascript">
+        const toggleBtn = document.querySelector('.nav_btn');
+        const menu = document.querySelector('.nav_menu');
+        toggleBtn.addEventListener('click',()=>{
+        menu.classList.toggle('active');
+        });
+    </script>     
+</body>
+</html>
