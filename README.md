@@ -8,7 +8,7 @@
 
 ### - 사용기술
 ##### - HTML5
-#####- CSS
+##### - CSS
 ##### - javascript(ES6)
 ##### - jQuery
 ##### - python
