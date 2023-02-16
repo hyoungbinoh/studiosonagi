@@ -1,6 +1,7 @@
 # studiosonagi 스튜디오 홈페이지
 
 ##### HTML, CSS, javascript 등을 활용한 스튜디오 홈페이지 제작
+![스튜디오소나기스크린샷](https://user-images.githubusercontent.com/108599126/219299869-83fabaca-142f-4f5a-a2e7-7a44dd826e54.PNG)
 ##### link: https://www.studiosonagi.com
 
 ### 1. 개발목표
