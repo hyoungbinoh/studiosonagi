@@ -2,7 +2,7 @@
 
 > ##### HTML, CSS, javascript 등을 활용한 스튜디오 홈페이지 제작
 ![스튜디오소나기스크린샷](https://user-images.githubusercontent.com/108599126/219299869-83fabaca-142f-4f5a-a2e7-7a44dd826e54.PNG)
-? ##### URL: https://www.studiosonagi.com
+> ##### URL: https://www.studiosonagi.com
    
 ### 1. 개발목표
 * ##### 회사에서 스튜디오가 오픈함에 따라 운영에 필요한 홈페이지 제작. 
