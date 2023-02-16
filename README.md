@@ -14,4 +14,4 @@
 ##### - python
 ##### - flask
 ##### - mongoDB
-######## - AWS(EC2, route53)
+##### - AWS(EC2, route53)
