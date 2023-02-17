@@ -9,9 +9,7 @@
 * ##### 강의를 통해 배운 HTML, CSS, javascript 등의 언어를 복습하고 응용하기 위하여 제작.
    
 ### 2. 사용기술
-* ##### HTML5
-* ##### CSS
-* ##### javascript(ES6)
+<img src="https://img.shields.io/badge/html-E34F26?style=flat&logo=html3&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=flat&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=flat&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/css-1572B6?style=flat&logo=css3&logoColor=white">
 * ##### jQuery
 * ##### python
 * ##### flask
