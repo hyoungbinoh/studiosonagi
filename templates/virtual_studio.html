@@ -1,63 +1,67 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta property="og:title" content="소나기버추얼스튜디오"/>
-    <meta property="og:description" content="소나기버추얼스튜디오는 LED Wall을 활용하여 촬영하는 버추얼 프로덕션 스튜디오입니다."/>
-    <meta property="og:image" content="{{ url_for('static', filename='소나기버추얼스튜디오_배경1.JPG') }}"/>
+    <meta property="og:title" content="소나기버추얼스튜디오" />
+    <meta property="og:description" content="소나기버추얼스튜디오는 LED Wall을 활용하여 촬영하는 버추얼 프로덕션 스튜디오입니다." />
+    <meta property="og:image" content="{{ url_for('static', filename='img/소나기버추얼스튜디오_배경1.JPG') }}" />
 
     <!-- naver -->
     <meta name="naver-site-verification" content="5216e2425c8d664ca1044ba4ce93ad006a4159ef" />
     <!-- google -->
-    <meta name="google-site-verification" content="6PUIkpo3ZS8oODBmeIU32yTk8MRxJYL_pzkJohBgr28" />    
+    <meta name="google-site-verification" content="6PUIkpo3ZS8oODBmeIU32yTk8MRxJYL_pzkJohBgr28" />
 
-    <link href="{{ url_for('static', filename='소나기로고.png') }}" rel="shortcut icon" type="image/x-icon">
-        
+    <link href="{{ url_for('static', filename='img/소나기로고.png') }}" rel="shortcut icon" type="image/x-icon">
+
     <!-- kakaomap -->
-    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=e7d72bbbefb241406c90a501568226f0"></script>
-    
+    <script type="text/javascript"
+        src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=e7d72bbbefb241406c90a501568226f0"></script>
+
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    
+
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/8c330d8a63.js" crossorigin="anonymous"></script>
 
     <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700&display=swap" rel="stylesheet">  
-    
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700&display=swap" rel="stylesheet">
+
     <!-- css -->
-    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ url_for('static', filename='header.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ url_for('static', filename='studio.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ url_for('static', filename='map.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ url_for('static', filename='footer.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/header.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/studio.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/map.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/footer.css') }}" rel="stylesheet" type="text/css">
 
     <title>스튜디오 소나기</title>
 
-    <style>         
+    <style>
         /* 배경 */
         .virtual-bg1 {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url("{{ url_for('static', filename='소나기버추얼스튜디오_배경1.JPG') }}");
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)),
+            url("{{ url_for('static', filename='img/소나기버추얼스튜디오_배경1.JPG') }}");
         }
 
         .virtual-bg2 {
-            background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url("{{ url_for('static', filename='소나기버추얼스튜디오_배경2.jpg') }}");
+            background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)),
+            url("{{ url_for('static', filename='img/소나기버추얼스튜디오_배경2.jpg') }}");
         }
-
-
     </style>
 </head>
+
 <body>
-    <a href="/"><img class="logo" src="{{ url_for('static', filename='로고.png') }}" alt="logo"></div>
+    <!-- 헤더 -->
+    <a href="/"><img class="logo" src="{{ url_for('static', filename='img/로고.png') }}" alt="logo"></a>
     <nav class="nav-bar">
         <ul class="nav-menu">
             <li class="nav-list"><a class="nav-link" href="/virtual">VIRTUAL STUDIO</a></li>
@@ -69,9 +73,11 @@
         </ul>
         <a href="#" class="nav-btn"><i class="fas fa-bars"></i></a>
     </nav>
+    <!-- 버추얼스튜디오 메인 -->
     <div class="studio-container virtual-bg1">
-        <p><img class="virtual_logo" src="{{ url_for('static', filename='소나기버추얼스튜디오_로고.png') }}" alt="소나기버추얼스튜디오"></p>
+        <p><img class="virtual_logo" src="{{ url_for('static', filename='img/소나기버추얼스튜디오_로고.png') }}" alt="소나기버추얼스튜디오"></p>
     </div>
+    <!-- 버추얼스튜디오 정보 -->
     <div class="info-container virtual-bg2">
         <div class="info-wrapper">
             <h1 class="info-title">소나기버추얼스튜디오</h1>
@@ -85,33 +91,38 @@
             </div>
         </div>
     </div>
+    <!-- 버추얼스튜디오 시설 -->
     <div class="faciltity-container">
         <div class="facility-top">
             <h3 class="facility-title">FACILITY</h3>
         </div>
         <div class="facility-box">
             <div>
-                <img class="facility-img" src="{{ url_for('static', filename='소나기버추얼스튜디오_시설1.jpg') }}" alt="Exterior">
-                <p class="facility-text">Exterior<br/><span class="led_wall">주차 2대 가능</span></p>
+                <img class="facility-img" src="{{ url_for('static', filename='img/소나기버추얼스튜디오_시설1.jpg') }}" alt="Exterior">
+                <p class="facility-text">Exterior<br /><span class="led_wall">주차 2대 가능</span></p>
             </div>
             <div>
-                <img class="facility-img" src="{{ url_for('static', filename='소나기버추얼스튜디오_배경1.JPG') }}" alt="Studio">
-                <p class="facility-text">Studio<br/><span class="led_wall">차량 진입 가능 (진입 높이 2300mm)</span></p>
+                <img class="facility-img" src="{{ url_for('static', filename='img/소나기버추얼스튜디오_배경1.JPG') }}" alt="Studio">
+                <p class="facility-text">Studio<br /><span class="led_wall">차량 진입 가능 (진입 높이 2300mm)</span></p>
             </div>
             <div>
-                <img class="facility-img" src="{{ url_for('static', filename='소나기버추얼스튜디오_시설2.JPG') }}" alt="Makeup Room">
+                <img class="facility-img" src="{{ url_for('static', filename='img/소나기버추얼스튜디오_시설2.JPG') }}"
+                    alt="Makeup Room">
                 <p class="facility-text">Makeup Room</p>
             </div>
             <div>
-                <img class="facility-img" src="{{ url_for('static', filename='소나기버추얼스튜디오_시설3.JPG') }}" alt="Fitting Room">
+                <img class="facility-img" src="{{ url_for('static', filename='img/소나기버추얼스튜디오_시설3.JPG') }}"
+                    alt="Fitting Room">
                 <p class="facility-text">Fitting Room</p>
             </div>
             <div>
-                <img class="facility-img" src="{{ url_for('static', filename='소나기버추얼스튜디오_시설5.JPG') }}" alt="LED Wall">
-                <p class="facility-text" style="margin-bottom: 70px;">LED Wall<br/><span class="led_wall">크기: 7680 x 3584mm | 피치: 2mm | 해상도: 3840 x 1792px</span></p>
+                <img class="facility-img" src="{{ url_for('static', filename='img/소나기버추얼스튜디오_시설5.JPG') }}" alt="LED Wall">
+                <p class="facility-text" style="margin-bottom: 70px;">LED Wall<br /><span class="led_wall">크기: 7680 x
+                        3584mm | 피치: 2mm | 해상도: 3840 x 1792px</span></p>
             </div>
         </div>
     </div>
+    <!-- 버추얼스튜디오 시설 -->
     <div class="map-container">
         <div class="map-box">
             <h2 class="map-title">LOCATION</h2>
@@ -119,6 +130,7 @@
             <p class="map-address">서울특별시 금천구 벛꽃로 14길 12, 1층</p>
         </div>
     </div>
+    <!-- 푸터 -->
     <div class="footer-container">
         <div class="footer-wrapper">
             <div class="icon-box" id="sns-box"></div>
@@ -127,28 +139,33 @@
                 <div class="footer-box">
                     <p class="footer-studio">소나기사운드웍스</p>
                     <p class="footer-info"><i class="fa-solid fa-location-dot"></i> 경기도 성남시 중원구 사기막골로 177, 418호</p>
-                    <p class="footer-info"><i class="fa-solid fa-envelope"></i> sonagisound@gmail.com  
-                    <i class="fa-solid fa-phone"></i> 070-4485-8776</p>
+                    <p class="footer-info"><i class="fa-solid fa-envelope"></i> sonagisound@gmail.com
+                        <i class="fa-solid fa-phone"></i> 070-4485-8776
+                    </p>
                 </div>
                 <div class="footer-box">
                     <p class="footer-studio">소나기버추얼스튜디오</p>
                     <p class="footer-info"><i class="fa-solid fa-location-dot"></i> 서울특별시 금천구 벛꽃로 14길 12, 1층</p>
-                    <p class="footer-info"><i class="fa-solid fa-envelope"></i> sonagiled@gmail.com  
-                    <i class="fa-solid fa-phone"></i> 010-4145-0408</p>
+                    <p class="footer-info"><i class="fa-solid fa-envelope"></i> sonagiled@gmail.com
+                        <i class="fa-solid fa-phone"></i> 010-4145-0408
+                    </p>
                 </div>
             </div>
-                <div class="footer-link-box"><a class="footer-link" href="/terms">이용약관</a> | <a class="footer-link" href="/policy">개인정보 처리방침</a></div>
+            <div class="footer-link-box"><a class="footer-link" href="/terms">이용약관</a> | <a class="footer-link"
+                    href="/policy">개인정보 처리방침</a></div>
             <a class="copyright" href="/admin">COPYRIGHT © SONAGI SOUNDWORKS ALL RIGHTS RESERVED.</a>
         </div>
     </div>
+    <!-- 위로가기 버튼 -->
     <div>
         <button id="top-btn">^</button>
     </div>
     <!-- js -->
-    <script src="{{ url_for('static', filename='toggleBtn.js') }}"></script>
-    <script src="{{ url_for('static', filename='iphoneSize.js') }}"></script>
-    <script src="{{ url_for('static', filename='virtualStudio.js') }}"></script>
-    <script src="{{ url_for('static', filename='sns.js') }}"></script>
-    <script src="{{ url_for('static', filename='scrollTop.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/toggleBtn.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/iphoneSize.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/virtualStudio.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sns.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scrollTop.js') }}"></script>
 </body>
+
 </html>

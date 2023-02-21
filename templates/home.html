@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta property="og:title" content="스튜디오 소나기"/>
-    <meta property="og:description" content="스튜디오 소나기는 소나기 사운드웍스의 브랜드 네임으로, 사운드웍스와 버추얼스튜디오로 이루어져 있습니다."/>
-    <meta property="og:image" content="{{ url_for('static', filename='소나기버추얼스튜디오_배경1.JPG') }}"/>
-    
+    <meta property="og:title" content="스튜디오 소나기" />
+    <meta property="og:description" content="스튜디오 소나기는 소나기 사운드웍스의 브랜드 네임으로, 사운드웍스와 버추얼스튜디오로 이루어져 있습니다." />
+    <meta property="og:image" content="{{ url_for('static', filename='img/소나기버추얼스튜디오_배경1.JPG') }}" />
+
     <!-- naver -->
     <meta name="naver-site-verification" content="5216e2425c8d664ca1044ba4ce93ad006a4159ef" />
     <!-- google -->
     <meta name="google-site-verification" content="6PUIkpo3ZS8oODBmeIU32yTk8MRxJYL_pzkJohBgr28" />
 
-    <link href="{{ url_for('static', filename='소나기로고.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ url_for('static', filename='img/소나기로고.png') }}" rel="shortcut icon" type="image/x-icon">
 
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/8c330d8a63.js" crossorigin="anonymous"></script>
-    
+
     <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -33,21 +34,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700&display=swap" rel="stylesheet">
 
     <!-- css -->
-    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='home.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='header.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='footer.css') }}" rel="stylesheet">
-    
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/header.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/footer.css') }}" rel="stylesheet">
+
     <title>스튜디오 소나기</title>
 
     <style>
         .home-bg2 {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url("{{ url_for('static', filename='스튜디오사진.jpg') }}");
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+            url("{{ url_for('static', filename='img/스튜디오사진.jpg') }}");
         }
     </style>
 </head>
+
 <body>
-    <a href="/"><img class="logo" src="{{ url_for('static', filename='로고.png') }}" alt="logo"></div>
+    <!-- 헤더 -->
+    <a href="/"><img class="logo" src="{{ url_for('static', filename='img/로고.png') }}" alt="logo"></a>
     <nav class="nav-bar">
         <ul class="nav-menu">
             <li class="nav-list"><a class="nav-link" href="/virtual">VIRTUAL STUDIO</a></li>
@@ -59,18 +63,20 @@
         </ul>
         <a href="#" class="nav-btn"><i class="fas fa-bars"></i></a>
     </nav>
+    <!-- 스튜디오 메인 -->
     <div class="box">
         <div class="home-container1">
             <video muted autoplay loop playsinline>
-                <source src="{{ url_for('static', filename='스튜디오영상.mp4') }}" type="video/mp4" >
+                <source src="{{ url_for('static', filename='img/스튜디오영상.mp4') }}" type="video/mp4">
                 <strong>Your browser does not support the video tag.</strong>
             </video>
             <div class="home-text-box1">
                 <p class="home-text1">For Your Imagination</p>
                 <h1 class="home-title1">STUDIO SONAGI</h1>
-            </div>           
+            </div>
         </div>
     </div>
+    <!-- 스튜디오 정보 -->
     <div class="box">
         <div class="home-container2 home-bg2">
             <div class="home-text-box2">
@@ -85,6 +91,7 @@
             </div>
         </div>
     </div>
+    <!-- 푸터 -->
     <div class="footer-container">
         <div class="footer-wrapper">
             <div class="icon-box" id="sns-box"></div>
@@ -93,28 +100,33 @@
                 <div class="footer-box">
                     <p class="footer-studio">소나기사운드웍스</p>
                     <p class="footer-info"><i class="fa-solid fa-location-dot"></i> 경기도 성남시 중원구 사기막골로 177, 418호</p>
-                    <p class="footer-info"><i class="fa-solid fa-envelope"></i> sonagisound@gmail.com  
-                    <i class="fa-solid fa-phone"></i> 070-4485-8776</p>
+                    <p class="footer-info"><i class="fa-solid fa-envelope"></i> sonagisound@gmail.com
+                        <i class="fa-solid fa-phone"></i> 070-4485-8776
+                    </p>
                 </div>
                 <div class="footer-box">
                     <p class="footer-studio">소나기버추얼스튜디오</p>
                     <p class="footer-info"><i class="fa-solid fa-location-dot"></i> 서울특별시 금천구 벛꽃로 14길 12, 1층</p>
-                    <p class="footer-info"><i class="fa-solid fa-envelope"></i> sonagiled@gmail.com  
-                    <i class="fa-solid fa-phone"></i> 010-4145-0408</p>
+                    <p class="footer-info"><i class="fa-solid fa-envelope"></i> sonagiled@gmail.com
+                        <i class="fa-solid fa-phone"></i> 010-4145-0408
+                    </p>
                 </div>
             </div>
-                <div class="footer-link-box"><a class="footer-link" href="/terms">이용약관</a> | <a class="footer-link" href="/policy">개인정보 처리방침</a></div>
+            <div class="footer-link-box"><a class="footer-link" href="/terms">이용약관</a> | <a class="footer-link"
+                    href="/policy">개인정보 처리방침</a></div>
             <a class="copyright" href="/admin">COPYRIGHT © SONAGI SOUNDWORKS ALL RIGHTS RESERVED.</a>
         </div>
     </div>
+    <!-- 위로가기 버튼 -->
     <div>
         <button id="top-btn">^</button>
     </div>
     <!-- js -->
-    <script src="{{ url_for('static', filename='toggleBtn.js') }}"></script>
-    <script src="{{ url_for('static', filename='textMoveUp.js') }}"></script>
-    <script src="{{ url_for('static', filename='iphoneSize.js') }}"></script>
-    <script src="{{ url_for('static', filename='sns.js') }}"></script>
-    <script src="{{ url_for('static', filename='scrollTop.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/toggleBtn.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/textMoveUp.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/iphoneSize.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sns.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scrollTop.js') }}"></script>
 </body>
+
 </html>
