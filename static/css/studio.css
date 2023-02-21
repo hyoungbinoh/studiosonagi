@@ -1,0 +1,151 @@
+/* 버추얼스튜디오, 사운드웍스 페이지 */
+.studio-container {
+    background-color: black;
+    width: 100%;
+    height: 100vh;
+    height: fill-available;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+
+.info-container {
+    background-color: black;
+    width: 100%;
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+
+.info-wrapper {
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+    font-family: 'Noto Sans KR', sans-serif;
+    color: white;
+    position: absolute;
+}
+
+.info-title {
+    font-size: 36px;
+}
+
+.info-text {
+    font-size: 18px;
+}
+
+.faciltity-container {
+    background-color: black;
+    width: 100%;
+}
+
+.facility-title {
+    font-size: 30px;
+}
+
+.facility-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    color: white;
+    width: 100%;
+}
+
+.facility-box {
+    width: 100%;
+    padding-bottom: 70px;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(700px, max-content));
+    justify-content: center;
+}
+
+.facility-img {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+
+    width: 600px;
+    height: 400px;
+    margin: 50px 50px 0px 50px;
+    border-radius: 10px;
+}
+
+.facility-text {
+    color: white;
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.virtual_logo {
+    position: absolute;
+    width: 28vw;
+    min-width: 280px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.led_wall {
+    font-size: 14px;
+}
+
+.sound-logo {
+    position: absolute;
+    width: 22vw;
+    min-width: 220px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 모바일 사이즈 */
+@media screen and (max-width: 1000px) {
+    .facility-box {
+        grid-template-columns: repeat(auto-fit, minmax(360px, max-content));
+    }
+
+    .facility-img {
+        width: 300px;
+        height: 200px;
+        margin: 30px 30px 0px 30px;
+    }
+
+    .facility-text {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .facility-top {
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .info-wrapper {
+        left: 2.5%
+    }
+
+    .info-title {
+        font-size: 24px;
+    }
+
+    .info-text {
+        font-size: 13px;
+    }
+
+    .studio-container,
+    .info-container {
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+    }
+}
