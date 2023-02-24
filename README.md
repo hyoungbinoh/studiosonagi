@@ -16,6 +16,7 @@
 <img src="https://user-images.githubusercontent.com/108599126/221131473-f4f7054b-5b80-4744-b354-b575c09b52c3.PNG" width="630" height="340">
 
 ```
+//예약 날짜에 예약 내역 붙이기(위의 달력 제작 과정 생략)
 function showMessage() {
    //Flask에서 Ajax 받기
    $.ajax({
