@@ -5,8 +5,8 @@
 ##### URL: https://www.studiosonagi.com
    
 ### 1. 개발목표
-* ##### 회사에서 스튜디오가 오픈함에 따라 운영에 필요한 홈페이지 제작. 
-* ##### 강의를 통해 배운 HTML, CSS, javascript 등의 언어를 복습하고 응용하기 위하여 제작.
+* 회사에서 스튜디오가 오픈함에 따라 운영에 필요한 홈페이지 제작. 
+* 강의를 통해 배운 HTML, CSS, javascript 등의 언어를 복습하고 응용하기 위하여 제작.
    
 ### 2. 사용기술
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat&logo=jquery&logoColor=white"> <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/Flask-000000?style=flat&logo=flask&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/AWS-232F3E?style=flat&logo=amazon AWS&logoColor=white">  <img src="https://img.shields.io/badge/AWS EC2-FF9900?style=flat&logo=amazon EC2&logoColor=white"> 
@@ -64,6 +64,31 @@ function showMessage() {
 ```
 
 * 관리자 페이지 로그인 기능
+<img src="https://user-images.githubusercontent.com/108599126/221134550-e50d140a-b50b-4b65-9443-3f73a1309e08.PNG" width="630" height="340">
+
+```
+@app.route('/login', methods=["get"])
+def login():
+    id_receive = request.args.get('loginId')
+    id_hash = hashlib.sha256(id_receive.encode('utf-8')).hexdigest()
+
+    password_receive = request.args.get('loginPw')
+    password_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
+
+    doc = {
+        'id': id_hash,
+        'password': password_hash
+    }
+
+    result = db.admin.find_one(doc)
+
+    if result is not None:
+        session["userID"] = id_receive
+        return redirect(url_for("admin"))
+    else:
+        return redirect(url_for("admin"))
+```
+
 * 관리자 페이지 정보 등록 기능
 
 ### 4. 개선사항
