@@ -64,9 +64,23 @@ function showMessage() {
 ```
 
 * 관리자 페이지 로그인 기능
-<img src="https://user-images.githubusercontent.com/108599126/221134550-e50d140a-b50b-4b65-9443-3f73a1309e08.PNG" width="630" height="340">
+<img src="https://user-images.githubusercontent.com/108599126/221135708-dd2929b0-2d82-4ec7-ae08-d86b760da4c7.PNG" width="630" height="340">
 
 ```
+<!-- HTML5 -->
+<form method="get" id="login" class="login-container" action={{url_for("login")}}>
+   <div class="login-wrap">
+      <p class="login-logo">STUDIO SONAGI</p>
+      <input type="id" id="loginId" name="loginId" class="login-common" placeholder="ID" />
+      <input type="password" id="loginPw" name="loginPw" class="login-common" placeholder="Password"
+         autocomplete="off" />
+      <button type="submit" class="login">로그인</button>
+   </div>
+</form>
+```
+
+```
+#Python Flask
 @app.route('/login', methods=["get"])
 def login():
     id_receive = request.args.get('loginId')
@@ -90,5 +104,71 @@ def login():
 ```
 
 * 관리자 페이지 정보 등록 기능
+<img src="https://user-images.githubusercontent.com/108599126/221138781-5d6c6571-7f71-4418-a629-077c27b76955.PNG" width="630" height="340">
 
-### 4. 개선사항
+```
+// jQuery
+function uploadMovie() {
+    let movieTitle = $('#movie-title').val()
+    let movieImg = $('#movie-img').val()
+    let movieUrl = $('#movie-url').val()
+
+    // ID 값 등록 시간으로 대체
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = ('0' + date.getMonth() + 1).slice(-2);
+    let day = ('0' + date.getDate()).slice(-2);
+    let hours = ('0' + date.getHours()).slice(-2);
+    let minutes = ('0' + date.getMinutes()).slice(-2);
+    let seconds = ('0' + date.getSeconds()).slice(-2);
+    let movieNum = year + month + day + hours + minutes + seconds;
+
+    // 유효성 검사
+    if (movieTitle == "") {
+        alert("제목을 입력해주세요.");
+        return false;
+    }
+
+    if (movieImg == "") {
+        alert("이미지 URL을 입력해주세요.");
+        return false;
+    }
+
+    if (movieUrl == "") {
+        alert("네이버 영화 URL을 입력해주세요.");
+        return false;
+    }
+
+    // Flask에 Ajax 보내기
+    $.ajax({
+        type: "POST",
+        url: "/filmography_server",
+        data: { movie_title_give: movieTitle, movie_url_give: movieUrl, movie_img_give: movieImg, movie_num_give: movieNum },
+        success: function (response) {
+            alert(response["msg"]);
+            window.location.reload();
+        }
+    })
+}
+```
+
+```
+#Python Flask
+@app.route('/filmography_server', methods=['POST'])
+def get_movie():
+    movie_num_receive = request.form['movie_num_give']
+    movie_title_receive = request.form['movie_title_give']
+    movie_img_receive = request.form['movie_img_give']
+    movie_url_receive = request.form['movie_url_give']
+
+    doc = {
+        'movie_num': movie_num_receive,
+        'movie_title': movie_title_receive,
+        'movie_img': movie_img_receive,
+        'movie_url': movie_url_receive
+    }
+
+    db.filmography.insert_one(doc)
+
+    return jsonify({'msg': '영화가 등록되었습니다.'})
+```
