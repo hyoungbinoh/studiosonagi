@@ -103,7 +103,7 @@ def login():
         return redirect(url_for("admin"))
 ```
 
-* 관리자 페이지 정보 등록 기능 구현(CRUD 가능)
+* 포트폴리오, 3D 샘플, 필모그래피 데이터 생성(관리자 페이지 CRUD 기능)
 <img src="https://user-images.githubusercontent.com/108599126/221138781-5d6c6571-7f71-4418-a629-077c27b76955.PNG" width="630" height="340">
 
 ```
@@ -171,6 +171,59 @@ def get_movie():
     db.filmography.insert_one(doc)
 
     return jsonify({'msg': '영화가 등록되었습니다.'})
+```
+
+* 포트폴리오, 3D 샘플, 필모그래피 데이터 읽기(CRUD 기능)
+- 데이터 있는 경우
+<img src="https://user-images.githubusercontent.com/108599126/222898338-34ebb1d0-fe1e-4f5b-867d-67cdc514e3ce.JPG" width="630" height="340">
+- 데이터 없는 경우
+<img src="https://user-images.githubusercontent.com/108599126/222899880-d3f8f470-35bc-43b1-b907-3aa41b5bd870.JPG" width="630" height="340">
+
+```
+// jQuery
+function showSample() {
+    // Flask에서 Ajax 받기
+    $.ajax({
+        type: "GET",
+        url: "/sample_server",
+        data: {},
+        success: function (response) {
+            let samples = response['all_samples'].reverse()
+            if (samples.length != 0) {
+                for (let i = 0; i < samples.length; i++) {
+                    let sampleNum = samples[i]['sample_num']
+                    let sampleTitle = samples[i]['sample_title']
+                    let sampleIcvfx = samples[i]['sample_icvfx']
+                    let sampleImg1 = samples[i]['sample_img1']
+
+                    // 3D 샘플 내역 생성
+                    let temp_html = `<div>
+                                        <a href="/sample/${sampleNum}">
+                                            <div class="portfolio-img">
+                                                <img src="/static/sample/${sampleImg1}" alt="${sampleTitle}">
+                                            </div>
+                                            <p class="portfolio-text">${sampleTitle}<span class="portfolio-span">${sampleIcvfx == 'true' ? '(ICVFX 가능)' : ''}</span></p>
+                                        </a>
+                                    </div>`
+                    $('#sample-wrap').append(temp_html)
+                }
+            } else {
+                // 3D 샘플 내역 없을 때
+                let temp_html = `<p class="portfolio-none">3D 맵 샘플 준비 중입니다.</p>`
+                $('#sample-wrap').append(temp_html)
+            }
+        }
+    })
+}
+
+```
+
+```
+#Python Flask
+@app.route('/sample_server', methods=['GET'])
+def read_sample():
+    samples = list(db.sample.find({}, {'_id': False}))
+    return jsonify({'all_samples': samples})
 ```
 
 ### 4. 개선사항
