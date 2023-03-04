@@ -227,6 +227,119 @@ def read_sample():
     return jsonify({'all_samples': samples})
 ```
 
+* 포트폴리오, 3D 샘플, 필모그래피 데이터 수정(관리자 페이지 CRUD 기능)
+<img src="https://user-images.githubusercontent.com/108599126/222917190-3fb21f93-1b75-4279-aaff-33e2063b2f85.JPG" width="630" height="340">
+
+```
+// jQuery
+function updatePortfolio() {
+    let portfolioNum = $('#portfolio-num').val();
+    let portfolioTitle = $('#portfolio-title').val();
+    let portfolioImg1 = $('#portfolio-img1')[0].files[0];
+    let portfolioImg2 = $('#portfolio-img2')[0].files[0];
+    let portfolioImg3 = $('#portfolio-img3')[0].files[0];
+    let portfolioImg4 = $('#portfolio-img4')[0].files[0];
+    let portfolioMovie = $('#portfolio-movie').val();
+
+    // FormDate 객체 생성
+    let formData = new FormData();
+    formData.append('portfolio_num_give', portfolioNum);
+    formData.append('portfolio_title_give', portfolioTitle);
+    formData.append('portfolio_img1_give', portfolioImg1);
+    formData.append('portfolio_img2_give', portfolioImg2);
+    formData.append('portfolio_img3_give', portfolioImg3);
+    formData.append('portfolio_img4_give', portfolioImg4);
+    formData.append('portfolio_movie_give', portfolioMovie);
+
+    // 유효성 검사(제목만)
+    if (portfolioTitle == "") {
+        alert("제목을 입력해주세요.");
+        return false;
+    }
+
+    // Flask에 Ajax 보내기
+    $.ajax({
+        type: "POST",
+        url: "/portfolio_server/update",
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function (response) {
+            alert(response["msg"]);
+            window.location.reload();
+        }
+    })
+}
+```
+
+```
+@app.route('/portfolio_server/update', methods=['POST'])
+def update_portfolio():
+    portfolio_num_receive = request.form['portfolio_num_give']
+    portfolio_title_receive = request.form['portfolio_title_give']
+    portfolio_movie_receive = request.form['portfolio_movie_give'].split('?v=')[-1].split('&t=')[0]
+
+    portfolio_num_target = db.portfolio.find_one({'portfolio_num': portfolio_num_receive})
+
+    today = datetime.now()
+    portfolio_time = today.strftime('%Y%m%d%H%M%S')
+
+    doc = [
+        {'$set': {'portfolio_title': portfolio_title_receive}},
+        {'$set': {'portfolio_movie': portfolio_movie_receive}},
+    ]
+
+    try:
+        portfolio_img1 = request.files['portfolio_img1_give']
+    except werkzeug.exceptions.BadRequestKeyError:
+        portfolio_doc1 = [{'$set': {'portfolio_img1': portfolio_num_target['portfolio_img1']}}]
+        doc.extend(portfolio_doc1)
+    else:
+        os.remove('./static/portfolio/' + portfolio_num_target['portfolio_img1'])
+        portfolio_extension1 = portfolio_img1.filename.split('.')[-1]
+        portfolio_file1 = f'{portfolio_time}_portfolio_img1'
+        portfolio_save1 = f'static/portfolio/{portfolio_file1}.{portfolio_extension1}'
+        portfolio_img1.save(portfolio_save1)
+        portfolio_doc1 = [{'$set': {'portfolio_img1': f'{portfolio_file1}.{portfolio_extension1}'}}]
+        doc.extend(portfolio_doc1)
+
+    try:
+        portfolio_img2 = request.files['portfolio_img2_give']
+    except werkzeug.exceptions.BadRequestKeyError:
+        try:
+            portfolio_delete2 = portfolio_num_target['portfolio_img2']
+        except KeyError:
+            pass
+        else:
+            portfolio_doc2 = [{'$set': {'portfolio_img2': portfolio_delete2}}]
+            doc.extend(portfolio_doc2)
+    else:
+        try:
+            portfolio_delete2 = portfolio_num_target['portfolio_img2']
+        except KeyError:
+            portfolio_extension2 = portfolio_img2.filename.split('.')[-1]
+            portfolio_file2 = f'{portfolio_time}_portfolio_img2'
+            portfolio_save2 = f'static/portfolio/{portfolio_file2}.{portfolio_extension2}'
+            portfolio_img2.save(portfolio_save2)
+            portfolio_doc2 = [{'$set': {'portfolio_img2': f'{portfolio_file2}.{portfolio_extension2}'}}]
+            doc.extend(portfolio_doc2)
+        else:
+            os.remove('./static/portfolio/' + portfolio_delete2)
+            portfolio_extension2 = portfolio_img2.filename.split('.')[-1]
+            portfolio_file2 = f'{portfolio_time}_portfolio_img2'
+            portfolio_save2 = f'static/portfolio/{portfolio_file2}.{portfolio_extension2}'
+            portfolio_img2.save(portfolio_save2)
+            portfolio_doc2 = [{'$set': {'portfolio_img2': f'{portfolio_file2}.{portfolio_extension2}'}}]
+            doc.extend(portfolio_doc2)
+
+    # portfolio_img3, portfolio_img4 생략(portfolio_img2와 동일) 
+
+    db.portfolio.update_one({'portfolio_num': portfolio_num_receive}, doc)
+    flash('포트폴리오가 수정되었습니다.', 'msg')
+    return jsonify({'msg': '포트폴리오가 수정되었습니다.'})
+```
+
+
 ### 4. 개선사항
 * 예약페이지 해당 달력 날짜 입력시 예약 팝업 또는 예약 상세페이지 이동 방안 고려
 * 포트폴리오, 3D 샘플, 필모그래피 관리자 수정페이지 수정 시 관리자페이지로 이동 
