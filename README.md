@@ -174,6 +174,7 @@ def get_movie():
 ```
 
 * 포트폴리오, 3D 샘플, 필모그래피 데이터 읽기(CRUD 기능)
+
 데이터 있는 경우
 <img src="https://user-images.githubusercontent.com/108599126/222898338-34ebb1d0-fe1e-4f5b-867d-67cdc514e3ce.JPG" width="630" height="340">
 데이터 없는 경우
