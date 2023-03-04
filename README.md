@@ -6,7 +6,7 @@
    
 ### 1. 개발목표
 * 회사에서 스튜디오가 오픈함에 따라 운영에 필요한 홈페이지 제작. 
-* 강의를 통해 배운 HTML, CSS, javascript 등의 언어를 복습하고 응용하기 위하여 제작.
+* 강의를 통해 배운 HTML, CSS, JavaScript 등의 언어를 복습하고 응용하기 위하여 제작.
    
 ### 2. 사용기술
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat&logo=jquery&logoColor=white"> <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/Flask-000000?style=flat&logo=flask&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/AWS-232F3E?style=flat&logo=amazon AWS&logoColor=white">  <img src="https://img.shields.io/badge/AWS EC2-FF9900?style=flat&logo=amazon EC2&logoColor=white"> 
@@ -16,7 +16,7 @@
 <img src="https://user-images.githubusercontent.com/108599126/221131473-f4f7054b-5b80-4744-b354-b575c09b52c3.PNG" width="630" height="340">
 
 ```
-//예약 날짜에 예약 내역 붙이기(위의 달력 제작 과정 생략)
+// JavaScript jQuery (위의 달력 제작 과정 생략)
 function showMessage() {
    //Flask에서 Ajax 받기
    $.ajax({
@@ -80,7 +80,7 @@ function showMessage() {
 ```
 
 ```
-#Python Flask
+# Python Flask
 @app.route('/login', methods=["get"])
 def login():
     id_receive = request.args.get('loginId')
@@ -107,7 +107,7 @@ def login():
 <img src="https://user-images.githubusercontent.com/108599126/221138781-5d6c6571-7f71-4418-a629-077c27b76955.PNG" width="630" height="340">
 
 ```
-// jQuery
+// JavaScript jQuery
 function uploadMovie() {
     let movieTitle = $('#movie-title').val()
     let movieImg = $('#movie-img').val()
@@ -153,7 +153,7 @@ function uploadMovie() {
 ```
 
 ```
-#Python Flask
+# Python Flask
 @app.route('/filmography_server', methods=['POST'])
 def get_movie():
     movie_num_receive = request.form['movie_num_give']
@@ -182,7 +182,7 @@ def get_movie():
 <img src="https://user-images.githubusercontent.com/108599126/222899880-d3f8f470-35bc-43b1-b907-3aa41b5bd870.JPG" width="630" height="340">
 
 ```
-// jQuery
+// JavaScript jQuery
 function showSample() {
     // Flask에서 Ajax 받기
     $.ajax({
@@ -231,7 +231,7 @@ def read_sample():
 <img src="https://user-images.githubusercontent.com/108599126/222917190-3fb21f93-1b75-4279-aaff-33e2063b2f85.JPG" width="630" height="340">
 
 ```
-// jQuery
+// JavaScript jQuery
 function updatePortfolio() {
     let portfolioNum = $('#portfolio-num').val();
     let portfolioTitle = $('#portfolio-title').val();
@@ -273,6 +273,7 @@ function updatePortfolio() {
 ```
 
 ```
+# Python Flask
 @app.route('/portfolio_server/update', methods=['POST'])
 def update_portfolio():
     portfolio_num_receive = request.form['portfolio_num_give']
@@ -339,6 +340,56 @@ def update_portfolio():
     return jsonify({'msg': '포트폴리오가 수정되었습니다.'})
 ```
 
+* 포트폴리오, 3D 샘플 상세 페이지
+<img src="https://user-images.githubusercontent.com/108599126/222917909-693ac111-f5a1-4544-9c0b-7821315f5730.JPG" width="630" height="340">
+
+```
+<!-- HTML -->
+<div class="common-container">
+  <div class="common-wrap">
+    <div class="portfolio-top" id="sample-detail-wrap">
+      <div style="display: flex; flex-direction:column; justify-content:center;">
+        <h1>{{ doc.portfolio_title }}</h1>
+        {% if doc.portfolio_movie != '' %}
+        <iframe class="portfolio-detail-img"
+          src="https://www.youtube.com/embed/{{ doc.portfolio_movie }}"></iframe>
+        {% endif %}
+        <img class="portfolio-detail-img" src="/static/portfolio/{{ doc.portfolio_img1 }}">
+        {% if doc.portfolio_img2 %}
+        <img class="portfolio-detail-img" src="/static/portfolio/{{ doc.portfolio_img2 }}">
+        {% endif %}
+        {% if doc.portfolio_img3 %}
+        <img class="portfolio-detail-img" src="/static/portfolio/{{ doc.portfolio_img3 }}">
+        {% endif %}
+        {% if doc.portfolio_img4 %}
+        <img class="portfolio-detail-img" src="/static/portfolio/{{ doc.portfolio_img4 }}">
+        {% endif %}
+        <a href="/portfolio" class="portfolio-detail-btn">돌아가기</a>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+```
+# Python Flask
+@app.route('/portfolio/<idx>')
+def portfolio_detail(idx):
+    if db.portfolio.find_one({'portfolio_num': idx}):
+        portfolio_data = db.portfolio.find_one({'portfolio_num': idx})
+        doc = {
+            "portfolio_num": portfolio_data.get("portfolio_num"),
+            "portfolio_title": portfolio_data.get("portfolio_title"),
+            "portfolio_img1": portfolio_data.get("portfolio_img1"),
+            "portfolio_img2": portfolio_data.get("portfolio_img2"),
+            "portfolio_img3": portfolio_data.get("portfolio_img3"),
+            "portfolio_img4": portfolio_data.get("portfolio_img4"),
+            "portfolio_movie": portfolio_data.get("portfolio_movie")
+        }
+        return render_template("portfolio_detail.html", doc=doc)
+    else:
+        return redirect('/portfolio')
+```
 
 ### 4. 개선사항
 * 예약페이지 해당 달력 날짜 입력시 예약 팝업 또는 예약 상세페이지 이동 방안 고려
