@@ -70,7 +70,7 @@ function showMessage() {
 }
 ```
 
-* 관리자 페이지 CRUD 기
+* 관리자 페이지 CRUD 기능
 <img src="https://user-images.githubusercontent.com/108599126/221138781-5d6c6571-7f71-4418-a629-077c27b76955.PNG" width="630" height="340">
 
 ```
