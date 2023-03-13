@@ -38,21 +38,9 @@ function showMessage() {
             let startTime = messages[j]['start_time']
             let endTime = messages[j]['end_time']
             let confirm = messages[j]['confirm']
-            //예약 날짜의 표기가 달력 날짜 표기와 같도록 조정
-            let adminYear = reservationDate.slice(0, 4)
-            let adminMonth = ""
-            let adminDate = ""
-            if (reservationDate[5] == 0) {
-               adminMonth = reservationDate[6]
-            } else {
-               adminMonth = reservationDate.slice(5, 7)
-            }
-            if (reservationDate[8] == 0) {
-               adminDate = reservationDate[9]
-            } else {
-               adminDate = reservationDate.slice(8, 10)
-            }
-            //해당 예약 날짜에 해당 내역 표기
+            
+            // 중간 
+            
             if (viewMonth + 1 == adminMonth && viewYear == adminYear) {
                for (let date of document.querySelectorAll('.this')) {
                   if (+date.innerText == adminDate && confirm === "CONFIRMED") {
@@ -80,7 +68,6 @@ function uploadMovie() {
     let movieImg = $('#movie-img').val()
     let movieUrl = $('#movie-url').val()
 
-    // ID 값 등록 시간으로 대체
     let date = new Date();
     let year = date.getFullYear();
     let month = ('0' + date.getMonth() + 1).slice(-2);
@@ -90,23 +77,8 @@ function uploadMovie() {
     let seconds = ('0' + date.getSeconds()).slice(-2);
     let movieNum = year + month + day + hours + minutes + seconds;
 
-    // 유효성 검사
-    if (movieTitle == "") {
-        alert("제목을 입력해주세요.");
-        return false;
-    }
-
-    if (movieImg == "") {
-        alert("이미지 URL을 입력해주세요.");
-        return false;
-    }
-
-    if (movieUrl == "") {
-        alert("네이버 영화 URL을 입력해주세요.");
-        return false;
-    }
-
-    // Flask에 Ajax 보내기
+    // 중간 생략
+    
     $.ajax({
         type: "POST",
         url: "/filmography_server",
@@ -165,7 +137,7 @@ function showSample() {
 }
 ```
 
-* 포트폴리오, 3D 샘플, 필모그래피 데이터 수정(관리자 페이지 CRUD 기능)
+* 이미지 값 null일 경우 
 
 <img src="https://user-images.githubusercontent.com/108599126/222917190-3fb21f93-1b75-4279-aaff-33e2063b2f85.JPG" width="630" height="340">
 
@@ -212,8 +184,7 @@ def update_portfolio():
     return jsonify({'msg': '포트폴리오가 수정되었습니다.'})
 ```
 
-* 포트폴리오, 3D 샘플 상세 페이지
-
+* jinja2를 활용한 상세 페이지 구현
 <img src="https://user-images.githubusercontent.com/108599126/222917909-693ac111-f5a1-4544-9c0b-7821315f5730.JPG" width="630" height="340">
 
 ```
