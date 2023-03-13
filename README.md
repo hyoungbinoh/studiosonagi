@@ -39,7 +39,7 @@ function showMessage() {
             let endTime = messages[j]['end_time']
             let confirm = messages[j]['confirm']
             
-            // 중간 
+            // 중간 생략
             
             if (viewMonth + 1 == adminMonth && viewYear == adminYear) {
                for (let date of document.querySelectorAll('.this')) {
