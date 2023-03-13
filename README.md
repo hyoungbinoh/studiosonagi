@@ -7,12 +7,19 @@
 ### 1. 개발목표
 * 회사에서 스튜디오가 오픈함에 따라 운영에 필요한 홈페이지 제작. 
 * 강의를 통해 배운 HTML, CSS, JavaScript 등의 언어를 복습하고 응용하기 위하여 제작.
+<br/><br/>
    
-### 2. 사용기술
+### 2. 제작인원
+* 풀스택 개발자 1명(본인)
+<br/><br/>
+   
+### 3. 사용기술
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat&logo=jquery&logoColor=white"> <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/Flask-000000?style=flat&logo=flask&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/AWS-232F3E?style=flat&logo=amazon AWS&logoColor=white">  <img src="https://img.shields.io/badge/AWS EC2-FF9900?style=flat&logo=amazon EC2&logoColor=white"> 
+<br/><br/>
 
-### 3. 구현기능
+### 4. 구현기능
 * 예약 달력 기능
+
 <img src="https://user-images.githubusercontent.com/108599126/221131473-f4f7054b-5b80-4744-b354-b575c09b52c3.PNG" width="630" height="340">
 
 ```
@@ -63,47 +70,7 @@ function showMessage() {
 }
 ```
 
-* 관리자 페이지 로그인 기능
-<img src="https://user-images.githubusercontent.com/108599126/221135708-dd2929b0-2d82-4ec7-ae08-d86b760da4c7.PNG" width="630" height="340">
-
-```
-<!-- HTML5 -->
-<form method="get" id="login" class="login-container" action={{url_for("login")}}>
-   <div class="login-wrap">
-      <p class="login-logo">STUDIO SONAGI</p>
-      <input type="id" id="loginId" name="loginId" class="login-common" placeholder="ID" />
-      <input type="password" id="loginPw" name="loginPw" class="login-common" placeholder="Password"
-         autocomplete="off" />
-      <button type="submit" class="login">로그인</button>
-   </div>
-</form>
-```
-
-```
-# Python Flask
-@app.route('/login', methods=["get"])
-def login():
-    id_receive = request.args.get('loginId')
-    id_hash = hashlib.sha256(id_receive.encode('utf-8')).hexdigest()
-
-    password_receive = request.args.get('loginPw')
-    password_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
-
-    doc = {
-        'id': id_hash,
-        'password': password_hash
-    }
-
-    result = db.admin.find_one(doc)
-
-    if result is not None:
-        session["userID"] = id_receive
-        return redirect(url_for("admin"))
-    else:
-        return redirect(url_for("admin"))
-```
-
-* 포트폴리오, 3D 샘플, 필모그래피 데이터 생성(관리자 페이지 CRUD 기능)
+* 관리자 페이지 CRUD 기
 <img src="https://user-images.githubusercontent.com/108599126/221138781-5d6c6571-7f71-4418-a629-077c27b76955.PNG" width="630" height="340">
 
 ```
@@ -152,28 +119,7 @@ function uploadMovie() {
 }
 ```
 
-```
-# Python Flask
-@app.route('/filmography_server', methods=['POST'])
-def get_movie():
-    movie_num_receive = request.form['movie_num_give']
-    movie_title_receive = request.form['movie_title_give']
-    movie_img_receive = request.form['movie_img_give']
-    movie_url_receive = request.form['movie_url_give']
-
-    doc = {
-        'movie_num': movie_num_receive,
-        'movie_title': movie_title_receive,
-        'movie_img': movie_img_receive,
-        'movie_url': movie_url_receive
-    }
-
-    db.filmography.insert_one(doc)
-
-    return jsonify({'msg': '영화가 등록되었습니다.'})
-```
-
-* 포트폴리오, 3D 샘플, 필모그래피 데이터 읽기(CRUD 기능)
+* Ajax를 활용한 서버와 비동기 통신
 
 <p>- 데이터 있는 경우</p>
 <img src="https://user-images.githubusercontent.com/108599126/222898338-34ebb1d0-fe1e-4f5b-867d-67cdc514e3ce.JPG" width="630" height="340">
@@ -219,91 +165,17 @@ function showSample() {
 }
 ```
 
-```
-#Python Flask
-@app.route('/sample_server', methods=['GET'])
-def read_sample():
-    samples = list(db.sample.find({}, {'_id': False}))
-    return jsonify({'all_samples': samples})
-```
-
 * 포트폴리오, 3D 샘플, 필모그래피 데이터 수정(관리자 페이지 CRUD 기능)
+
 <img src="https://user-images.githubusercontent.com/108599126/222917190-3fb21f93-1b75-4279-aaff-33e2063b2f85.JPG" width="630" height="340">
-
-```
-// JavaScript jQuery
-function updatePortfolio() {
-    let portfolioNum = $('#portfolio-num').val();
-    let portfolioTitle = $('#portfolio-title').val();
-    let portfolioImg1 = $('#portfolio-img1')[0].files[0];
-    let portfolioImg2 = $('#portfolio-img2')[0].files[0];
-    let portfolioImg3 = $('#portfolio-img3')[0].files[0];
-    let portfolioImg4 = $('#portfolio-img4')[0].files[0];
-    let portfolioMovie = $('#portfolio-movie').val();
-
-    // FormDate 객체 생성
-    let formData = new FormData();
-    formData.append('portfolio_num_give', portfolioNum);
-    formData.append('portfolio_title_give', portfolioTitle);
-    formData.append('portfolio_img1_give', portfolioImg1);
-    formData.append('portfolio_img2_give', portfolioImg2);
-    formData.append('portfolio_img3_give', portfolioImg3);
-    formData.append('portfolio_img4_give', portfolioImg4);
-    formData.append('portfolio_movie_give', portfolioMovie);
-
-    // 유효성 검사(제목만)
-    if (portfolioTitle == "") {
-        alert("제목을 입력해주세요.");
-        return false;
-    }
-
-    // Flask에 Ajax 보내기
-    $.ajax({
-        type: "POST",
-        url: "/portfolio_server/update",
-        processData: false,
-        contentType: false,
-        data: formData,
-        success: function (response) {
-            alert(response["msg"]);
-            window.location.reload();
-        }
-    })
-}
-```
 
 ```
 # Python Flask
 @app.route('/portfolio_server/update', methods=['POST'])
 def update_portfolio():
-    portfolio_num_receive = request.form['portfolio_num_give']
-    portfolio_title_receive = request.form['portfolio_title_give']
-    portfolio_movie_receive = request.form['portfolio_movie_give'].split('?v=')[-1].split('&t=')[0]
 
-    portfolio_num_target = db.portfolio.find_one({'portfolio_num': portfolio_num_receive})
-
-    today = datetime.now()
-    portfolio_time = today.strftime('%Y%m%d%H%M%S')
-
-    doc = [
-        {'$set': {'portfolio_title': portfolio_title_receive}},
-        {'$set': {'portfolio_movie': portfolio_movie_receive}},
-    ]
-
-    try:
-        portfolio_img1 = request.files['portfolio_img1_give']
-    except werkzeug.exceptions.BadRequestKeyError:
-        portfolio_doc1 = [{'$set': {'portfolio_img1': portfolio_num_target['portfolio_img1']}}]
-        doc.extend(portfolio_doc1)
-    else:
-        os.remove('./static/portfolio/' + portfolio_num_target['portfolio_img1'])
-        portfolio_extension1 = portfolio_img1.filename.split('.')[-1]
-        portfolio_file1 = f'{portfolio_time}_portfolio_img1'
-        portfolio_save1 = f'static/portfolio/{portfolio_file1}.{portfolio_extension1}'
-        portfolio_img1.save(portfolio_save1)
-        portfolio_doc1 = [{'$set': {'portfolio_img1': f'{portfolio_file1}.{portfolio_extension1}'}}]
-        doc.extend(portfolio_doc1)
-
+   # 중간생략
+   
     try:
         portfolio_img2 = request.files['portfolio_img2_give']
     except werkzeug.exceptions.BadRequestKeyError:
@@ -333,7 +205,7 @@ def update_portfolio():
             portfolio_doc2 = [{'$set': {'portfolio_img2': f'{portfolio_file2}.{portfolio_extension2}'}}]
             doc.extend(portfolio_doc2)
 
-    # portfolio_img3, portfolio_img4 생략(portfolio_img2와 동일) 
+    # 중간생략
 
     db.portfolio.update_one({'portfolio_num': portfolio_num_receive}, doc)
     flash('포트폴리오가 수정되었습니다.', 'msg')
@@ -341,6 +213,7 @@ def update_portfolio():
 ```
 
 * 포트폴리오, 3D 샘플 상세 페이지
+
 <img src="https://user-images.githubusercontent.com/108599126/222917909-693ac111-f5a1-4544-9c0b-7821315f5730.JPG" width="630" height="340">
 
 ```
@@ -370,27 +243,11 @@ def update_portfolio():
   </div>
 </div>
 ```
+<br/><br/>
 
-```
-# Python Flask
-@app.route('/portfolio/<idx>')
-def portfolio_detail(idx):
-    if db.portfolio.find_one({'portfolio_num': idx}):
-        portfolio_data = db.portfolio.find_one({'portfolio_num': idx})
-        doc = {
-            "portfolio_num": portfolio_data.get("portfolio_num"),
-            "portfolio_title": portfolio_data.get("portfolio_title"),
-            "portfolio_img1": portfolio_data.get("portfolio_img1"),
-            "portfolio_img2": portfolio_data.get("portfolio_img2"),
-            "portfolio_img3": portfolio_data.get("portfolio_img3"),
-            "portfolio_img4": portfolio_data.get("portfolio_img4"),
-            "portfolio_movie": portfolio_data.get("portfolio_movie")
-        }
-        return render_template("portfolio_detail.html", doc=doc)
-    else:
-        return redirect('/portfolio')
-```
+### 5. 문제해결
+* 예약 달력에 달력 내용이 나오게 하는 방법을 잘 몰라서 어려움이 있었는데, 여러가지 안을 생각해보던 중 Ajax를 통해 서버에서 데이터를 가져올 때 그 안에 달력 값을 가져오는 방법을 생각했고, 그 방법을 적용하여 해결하였습니다.
+* 이미지 데이터를 받아올 때 이미지 값이 null이면 서버에서 에러가 나는 문제가 있었고, 에러를 예외처리 하여 그 문제를 해결하였습니다.
 
-### 4. 개선사항
-* 예약페이지 해당 달력 날짜 입력시 예약 팝업 또는 예약 상세페이지 이동 방안 고려
-* 포트폴리오, 3D 샘플, 필모그래피 관리자 수정페이지 수정 시 관리자페이지로 이동 
+### 6. 보완할 점
+* 수정 페이지에서 수정 후 관리자페이지로 리디렉션 필요
