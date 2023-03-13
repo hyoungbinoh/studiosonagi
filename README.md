@@ -137,7 +137,7 @@ function showSample() {
 }
 ```
 
-* 이미지 값 null일 경우 
+* 이미지 값 null일 경우 예외 처리
 
 <img src="https://user-images.githubusercontent.com/108599126/222917190-3fb21f93-1b75-4279-aaff-33e2063b2f85.JPG" width="630" height="340">
 
